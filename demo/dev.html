@@ -27,6 +27,13 @@
                     tr: {
                         o: "rank",
                         s: "ariaIndex"
+                    },
+                    "plus-minus": {
+                        a:{
+                            do: (e, {model}) => {
+                                model.isExpanded = !model.isExpanded
+                            }
+                        }
                     }
                 }
             }
@@ -53,6 +60,7 @@
         <caption>Medal List Summer 2024</caption>
         <thead>
             <tr>
+                <th></th>
                 <th>Team</th>
                 <th>Gold Medals</th>
                 <th>Silver Medals</th>
@@ -62,6 +70,7 @@
         <tbody itemscope itemprop="list">
             <template per-each="item as metal-count of $">
                 <tr>
+                    <td><plus-minus></plus-minus></td>
                     <td itemprop=team></td>
                     <td itemprop=goldCount></td>
                     <td itemprop=silverCount></td>
