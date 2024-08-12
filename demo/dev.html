@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class MedalList extends HTMLElement {
+            /** @type{Array<Medal>} */
+            list;
+        }
+        customElements.define('medal-list', MyList);
+        /** @implements {Medal} */
+        class MedalCount extends HTMLElement {
+            static config={
+                xform:{
+                    "-o rank -s ariaRowIndex":  0
+                }
+            }
+            isExpanded = false;
+            goldCount = 0;
+            silverCount = 0;
+            bronzeCount = 0;
+            team="";
+            rank = 0;
+        }
+        customElements.define('medal-count', MedalCount);
+        class MedalMent extends HTMLElement {
+            team="";
+            GoldWinningAthletes = [];
+            SilverWinningAthletes = [];
+            BronzeWinningAthletes = [];
+        }
+        customElements.define('medal-ment', MedalMent);
+    </script>
+    
+    
+    
+    <table itemscope=medal-list>
+        <caption>Medal List Summer 2024</caption>
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Gold Medals</th>
+                <th>Silver Medals</th>
+                <th>Bronze Medals</th>
+            </tr>
+        </thead>
+        <tbody itemprop=list>
+            <template per-each-as=medal-count>
+                <tr -o=rank -s=ariaRowIndex>
+                    <td itemprop=team></td>
+                    <td itemprop=goldCount></td>
+                    <td itemprop=silverCount></td>
+                    <td itemprop=bronzeCount></td>
+                </tr>
+                <tr -t-🎚️="on when isExpanded" -o=rank -s=ariaRowIndex>
+                    <td colspan=4>
+                        <medal-ment 
+                            -s=team>
+                        </medal-ment>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+
+</body>
+</html>
