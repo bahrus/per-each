@@ -56,8 +56,8 @@
                 <th>Bronze Medals</th>
             </tr>
         </thead>
-        <tbody itemprop=list>
-            <template per-each>
+        <tbody>
+            <template per-each="item as metal-count of list">
                 <tr>
                     <td itemprop=team></td>
                     <td itemprop=goldCount></td>
