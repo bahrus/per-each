@@ -12,7 +12,6 @@ Example:  Suppose we want to display of the medal count and details of the last 
 This would look as follows:
 
 ```html
-```html
 <script>
     customElements.define('my-list', class {
         #isList = ["hello", "world"];
@@ -37,5 +36,4 @@ This would look as follows:
     <li per-each="my-item in my-list"></li>
     <li>Footer</li>
 </ul>
-```
 ```
