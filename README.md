@@ -12,4 +12,30 @@ Example:  Suppose we want to display of the medal count and details of the last 
 This would look as follows:
 
 ```html
+```html
+<script>
+    customElements.define('my-list', class {
+        #isList = ["hello", "world"];
+        /**
+         * @type {Element}
+         */
+        #enhancedElement;
+        get ishList(){
+            return this.#isList;
+        }
+        set ishList(nv){
+            this.#isList = nv;
+            this.#enhancedElement.dispatchEvent(new Event('ishListChanged'));
+        }
+        attachedCallback(enhancedEl){
+            this.#enhancedElement = enhancedEl;
+        }
+    });
+</script>
+<ul itemscope=my-list>
+    <li>Head Item</li>
+    <li per-each="my-item in my-list"></li>
+    <li>Footer</li>
+</ul>
+```
 ```
