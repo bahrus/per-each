@@ -123,3 +123,6 @@ This could look as follows:
 </table>
 ```
 
+## Getting xform from custom elements
+Use lcXform prop
+
