@@ -14,7 +14,7 @@ This could look as follows:
 ```html
 <script>
     customElements.define('my-list', class {
-        #isList = [
+        #ishList = [
             {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
             {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
             {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
@@ -25,17 +25,17 @@ This could look as follows:
          */
         #enhancedElement;
         get ishList(){
-            return this.#isList;
+            return this.#ishList;
         }
         set ishList(nv){
             //we could filter the list if applicable first
-            this.#isList = nv;
+            this.#ishList = nv;
             this.#calculateTotal();
             this.dispatchEvent(new Event('ishListChanged'));
         }
 
         #calculateTotal(){
-            if(this.#isList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
+            if(this.#ishList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
         }
 
         #totalMedalCount;
