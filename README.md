@@ -28,6 +28,7 @@ This could look as follows:
             return this.#isList;
         }
         set ishList(nv){
+            //we could filter the list if applicable first
             this.#isList = nv;
             this.#calculateTotal();
             this.dispatchEvent(new Event('ishListChanged'));
@@ -59,7 +60,7 @@ This could look as follows:
             <th>Total</th>
     </thead>
     <tbody>
-        <tr per-each='my-item of my-list do {
+        <tr per-each='my-item of my-list bind {
             "my-item": {
                 "| rank": 0,
                 "| noc": 0,
@@ -69,8 +70,13 @@ This could look as follows:
             },
             "my-list": {
                 "-o totalMedalCount": 0
+            },
+            "idx":{
+                "-s aria-rowindex": {
+                    "o": "myItemIdx"
+                }
             }
-        }'>
+        }' -s=aria-rowindex>
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -125,4 +131,6 @@ This could look as follows:
 
 ## Getting xform from custom elements
 Use lcXform prop
+
+## Setting attributes from the index
 
