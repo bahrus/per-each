@@ -34,7 +34,7 @@ This could look as follows:
         }
 
         #calculateTotal(){
-            if(this.#isList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
+            if(this.#ishList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
         }
 
         #totalMedalCount;
