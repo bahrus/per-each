@@ -14,9 +14,42 @@ class PerEach extends BE {
      * @type {BEConfig<AP & BEAllProps, Actions & IEnhancement>}
      */
     static config = {
+        propInfo:{
+            ...propInfo,
+            statement: {}
+        },
+        compacts: {
+            when_statement_changes_invoke_parse: 0,
+        },
+        actions: {
+            hydrate: {
+                ifAllOf: ['itemProp', 'listProp'],
+            }
+        },
+        positractions: [resolved, rejected],
     }
 
     de = de;
+
+    parse(self){
+        const { statement } = self;
+        const split = statement.split(' of ').map(s => s.trim());
+        const [itemProp, listProp] = split;
+        return /** @type {PAP} */({
+            itemProp, listProp
+        });
+    }
+
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
+    async hydrate(self) {
+        return /** @type {PAP} */({
+            resolved: true
+        });
+    }
 }
 
 await PerEach.bootUp();

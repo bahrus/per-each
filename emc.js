@@ -10,7 +10,9 @@ export const emc = {
     base: 'per-each',
     enhPropKey: 'perEach',
     map: {
-
+        '0.0':{
+            instanceOf: 'String'
+        }
     },
     importEnh: async () => {
         const { PerEach } = await import('./per-each.js');

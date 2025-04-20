@@ -76,7 +76,7 @@ This could look as follows:
 
         }
 
-        async hydrate(fragmentChildren){
+        async attachedCallback(element){
             //binding / event handling added here
         }
 
@@ -115,7 +115,7 @@ In this example, the *my-item* custom element chooses to use trans-rendering as 
 
 ```JavaScript
 interface IshFace{
-    hydrate(fragmentChildren: ICollection<Element>): Promise<void>;
+    attachedCallback(el: Element): Promise<void>;
 }
 ```
 
