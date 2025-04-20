@@ -3,7 +3,7 @@
 *per-each* is a custom enhancement, based on the be-enhanced family of behiviors, that 
 
 1.  Provides for looping support, 
-2.  Imposes little to no requirements as far as binding.
+2.  Imposes little to no requirements as far as binding syntax.
 3.  Promotes use of custom elements for encapsulating logic and binding as needed, while
 4.  Working around limitations of proper HTML decorum.
 
@@ -76,10 +76,8 @@ This could look as follows:
 
         }
 
-        hydrate(fragmentChildren){
-            //after done hydrating, raise event 'hydrated'
-            ...
-            this.dispatchEvent(new Event('hydrated'));
+        async hydrate(fragmentChildren){
+            //binding / event handling added here
         }
 
         //do we need this?
@@ -113,7 +111,13 @@ This could look as follows:
 </table>
 ```
 
-In this example, the *my-item* custom element chooses to use trans-rendering as the binding mechanism, but *per-each* doesn't really care about that
+In this example, the *my-item* custom element chooses to use trans-rendering as the binding mechanism, but *per-each* doesn't really care about that.  It just needs a custom element that implements:
+
+```JavaScript
+interface IshFace{
+    hydrate(fragmentChildren: ICollection<Element>): Promise<void>;
+}
+```
 
 ## Getting xform from custom elements
 Use lcXform prop
