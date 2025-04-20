@@ -61,11 +61,7 @@ This could look as follows:
                 "| total": 0,
             }
         }
-
-        attachedCallback(firstElementOfClonedFragment){
-            ...
-        }
-
+        //view model that gets passed in goes here by default
         #ish
         get ish(){
             return this.#ish;
@@ -79,6 +75,14 @@ This could look as follows:
             // so the looping mechanism knows it is ready to add to the live DOM tree:
 
         }
+
+        hydrate(fragmentChildren){
+            //after done hydrating, raise event 'hydrated'
+            ...
+            this.dispatchEvent(new Event('hydrated'));
+        }
+
+
     });
 
 </script>
