@@ -129,6 +129,102 @@ This could look as follows:
 </table>
 ```
 
+
+Alternative to consider:
+
+```html
+<script>
+    customElements.define('my-list', class {
+        #ishList = [
+            {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
+            {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
+            {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
+            ...
+        ];
+        /**
+         * @type {Element}
+         */
+        #enhancedElement;
+        get ishList(){
+            return this.#ishList;
+        }
+        set ishList(nv){
+            //we could filter the list if applicable first
+            this.#ishList = nv;
+            this.#calculateTotal();
+            this.dispatchEvent(new Event('ishListChanged'));
+        }
+
+        #calculateTotal(){
+            if(this.#ishList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
+        }
+
+        #totalMedalCount;
+        get totalMedalCount(){
+            return this.#totalMedalCount;
+        }
+        attachedCallback(enhancedEl){
+            this.#enhancedElement = enhancedEl;
+        }
+    });
+    customElements.define('my-item', class {
+        static config: {
+            xform: {
+                "| rank": 0,
+                "| noc": 0,
+                "| gold": 0,
+                "| silver": 0,
+                "| total": 0,
+            }
+        }
+    });
+
+</script>
+<table itemscope=my-list>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>NOC</th>
+            <th>Gold</th>
+            <th>Silver</th>
+            <th>Total</th>
+    </thead>
+    <tbody>
+        <tr 
+            per-each='["my-item", "my-list", {
+                "my-item": {
+                    "| rank": 0,
+                    "| noc": 0,
+                    "| gold": 0,
+                    "| silver": 0,
+                    "| total": 0,
+                },
+                "my-list": {
+                    "-o totalMedalCount": 0
+                },
+                "idx":{
+                    "-s aria-rowindex": {
+                        "o": "myItemIdx"
+                    }
+                }
+            }]
+                "item": "my-item",
+
+                 of my-list'
+            per-each-bind='{
+                
+            
+            }' -s=aria-rowindex>
+            <td itemprop=rank></td>
+            <td itemprop=noc></td>
+            <td itemprop=gold></td>
+            <td itemprop=silver></td>
+            <td itemprop=bronze></td>
+            <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+        </tr>
+</table>
+```
+
 ## Getting xform from custom elements
 Use lcXform prop
 
