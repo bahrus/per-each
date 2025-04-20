@@ -182,6 +182,20 @@ Alternative to consider:
                 "| total": 0,
             }
         }
+
+        attachedCallback(firistElementOfClonedFragmnet){
+            ...
+        }
+
+        #ish
+        get ish(){
+            return this.#ish;
+        }
+
+        set ish(nv){
+            this.#ish = nv;
+            //do whatever the custom element wants to do as far as 
+        }
     });
 
 </script>
