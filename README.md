@@ -135,6 +135,11 @@ Alternative to consider:
 ```html
 <script>
     customElements.define('my-list', class {
+        static config = {
+            xform:{
+                "-o totalMedalCount": 0
+            }
+        }
         #ishList = [
             {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
             {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
@@ -191,30 +196,7 @@ Alternative to consider:
     </thead>
     <tbody>
         <tr 
-            per-each='["my-item", "my-list", {
-                "my-item": {
-                    "| rank": 0,
-                    "| noc": 0,
-                    "| gold": 0,
-                    "| silver": 0,
-                    "| total": 0,
-                },
-                "my-list": {
-                    "-o totalMedalCount": 0
-                },
-                "idx":{
-                    "-s aria-rowindex": {
-                        "o": "myItemIdx"
-                    }
-                }
-            }]
-                "item": "my-item",
-
-                 of my-list'
-            per-each-bind='{
-                
-            
-            }' -s=aria-rowindex>
+            per-each="my-item of my-list" -s=aria-rowindex>
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
