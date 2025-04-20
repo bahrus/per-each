@@ -183,7 +183,7 @@ Alternative to consider:
             }
         }
 
-        attachedCallback(firistElementOfClonedFragmnet){
+        attachedCallback(firistElementOfClonedFragment){
             ...
         }
 
@@ -194,7 +194,8 @@ Alternative to consider:
 
         set ish(nv){
             this.#ish = nv;
-            //do whatever the custom element wants to do as far as 
+            //do whatever the custom element wants to do as far as binding the values of ish 
+            //to the firstElementOfClonedElement and additional elements linked via itemref if applicable
         }
     });
 
