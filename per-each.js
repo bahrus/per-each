@@ -46,6 +46,7 @@ class PerEach extends BE {
      * @returns 
      */
     async hydrate(self) {
+        const { itemProp, listProp, enhancedElement } = self;
         return /** @type {PAP} */({
             resolved: true
         });
