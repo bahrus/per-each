@@ -82,6 +82,11 @@ This could look as follows:
             this.dispatchEvent(new Event('hydrated'));
         }
 
+        //do we need this?
+        forget(fragmentChildren){
+            //release event handlers as needed, especially if the element will remain for whatever reason
+        }
+
 
     });
 
