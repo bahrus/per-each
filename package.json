@@ -2,10 +2,24 @@
   "name": "per-each",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "per-each.js",
+  "module": "per-each.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
+    "safari": "npx playwright wk http://localhost:3030",
+    "update": "ncu -u && npm install"
   },
-  "author": "",
+  "dependencies": {
+    "be-enhanced": "0.0.172",
+    "be-hive": "0.0.252",
+    "mount-observer": "0.0.47",
+    "trans-render": "0.0.892"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.52.0",
+    "ssi-server": "0.0.1"
+  },
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT"
 }
