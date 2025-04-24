@@ -108,6 +108,7 @@ This could look as follows:
             <td itemprop=bronze></td>
             <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
         </tr>
+    </tbody>
 </table>
 ```
 
@@ -123,4 +124,36 @@ interface IshFace{
 Use lcXform prop
 
 ## Setting attributes from the index
+
+Working with flat fragments
+
+```html
+<table itemscope=my-list>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>NOC</th>
+            <th>Gold</th>
+            <th>Silver</th>
+            <th>Total</th>
+    </thead>
+    <tbody>
+        <tr 
+            per-each="my-item of my-list" per-each-modulo=3 -s=aria-rowindex>
+            <td itemprop=rank></td>
+            <td itemprop=noc></td>
+            <td itemprop=gold></td>
+            <td itemprop=silver></td>
+            <td itemprop=bronze></td>
+            <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+        </tr>
+    </tbody>
+</table>
+```
+
+Limitations -- can only work with adjacent elements as part of fragment
 
