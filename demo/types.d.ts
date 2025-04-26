@@ -18,6 +18,6 @@ export interface NationalMedalListProps {
 }
 
 export interface NationalMedalListActions {
-    disp(self: NationalMedalListProps): void;
+    //disp(self: NationalMedalListProps): void;
     calcTotal(self: NationalMedalListProps): Partial<NationalMedalListProps>;
 }

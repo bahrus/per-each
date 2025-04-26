@@ -20,20 +20,21 @@ export class NationalMedalList extends Scope {
                     {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
                 ]
             },
-            totalMedalCount: {},
+            totalMedalCount: {
+                def: 0,
+            },
         },
         compacts:{
-            when_ishList_changes_call_disp: 0,
+            //when_ishList_changes_call_disp: 0,
             when_ishList_changes_call_calcTotal: 0,
+            when_ishList_changes_dispatch: 'ishListChanged'
         },
         xform:{
             '-o totalMedalCount': 0
         }
     };
 
-    disp(self){
-        this.dispatchEvent(new Event('ishListChanged'));
-    }
+
 
     /**
      * 
@@ -46,6 +47,7 @@ export class NationalMedalList extends Scope {
         for(const item of ishList){
             totalMedalCount += item.total;
         }
+        console.log('totalMedalCount', totalMedalCount);
         return ({
             totalMedalCount
         })
