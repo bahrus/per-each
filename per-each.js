@@ -82,7 +82,6 @@ class PerEach extends BE {
      */
     async init(self) {
         const { itemProp, listProp, enhancedElement } = self;
-        console.log('in hydrate');
         const closest = enhancedElement.closest(`[itemscope="${listProp}"`);
         if(closest === null) throw 404;
         /**
