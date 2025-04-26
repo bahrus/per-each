@@ -47,6 +47,9 @@ class PerEach extends BE {
      */
     async hydrate(self) {
         const { itemProp, listProp, enhancedElement } = self;
+        console.log('in hydrate');
+        const closest = enhancedElement.closest(`[itemscope="${listProp}"`);
+        console.log({closest});
         return /** @type {PAP} */({
             resolved: true
         });

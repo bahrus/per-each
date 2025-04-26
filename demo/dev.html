@@ -4,85 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- #include virtual="/imports.html" -->
+     <script type=module>
+        import './CountryMedalCount.js';
+        import './NationalMedalList.js';
+        import '/emc.js';
+     </script>
 </head>
 <body>
-    <script>
-        class MedalList extends HTMLElement {
-            /** @type{Array<Medal>} */
-            list;
-        }
-        customElements.define('medal-list', MyList);
-        /** @implements {Medal} */
-        class MedalCount extends HTMLElement {
-            static config={
-                xform:{
-                   "metal-ment": {
-                        o: "team",
-                        s: "team"
-                    },
-                    "| team": 0,
-                    "| goldCount": 0,
-                    "| silverCount": 0,
-                    "| bronzeCount": 0,
-                    tr: {
-                        o: "rank",
-                        s: "ariaIndex"
-                    },
-                    "plus-minus": {
-                        a:{
-                            do: (e, {model}) => {
-                                model.isExpanded = !model.isExpanded
-                            }
-                        }
-                    }
-                }
-            }
-            isExpanded = false;
-            goldCount = 0;
-            silverCount = 0;
-            bronzeCount = 0;
-            team="";
-            rank = 0;
-        }
-        customElements.define('medal-count', MedalCount);
-        class MedalMent extends HTMLElement {
-            team="";
-            GoldWinningAthletes = [];
-            SilverWinningAthletes = [];
-            BronzeWinningAthletes = [];
-        }
-        customElements.define('medal-ment', MedalMent);
-    </script>
-    
-    
-    
-    <table itemscope=medal-list>
+
+    <table itemscope=national-medal-list>
         <caption>Medal List Summer 2024</caption>
         <thead>
             <tr>
                 <th></th>
-                <th>Team</th>
-                <th>Gold Medals</th>
-                <th>Silver Medals</th>
-                <th>Bronze Medals</th>
+                <th>Rank</th>
+                <th>NOC</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Total</th>
             </tr>
         </thead>
-        <tbody itemscope itemprop=list>
-            <template per-each="item as metal-count of $">
+        <tbody>
+            <template per-each="country-medal-count of national-medal-list">
                 <tr>
                     <td><plus-minus></plus-minus></td>
-                    <td itemprop=team></td>
-                    <td itemprop=goldCount></td>
-                    <td itemprop=silverCount></td>
-                    <td itemprop=bronzeCount></td>
+                    <td itemprop=rank></td>
+                    <td itemprop=noc></td>
+                    <td itemprop=gold></td>
+                    <td itemprop=silver></td>
+                    <td itemprop=bronze></td>
+                    <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
                 </tr>
-                <template 🎚️="on when isExpanded">
+                <!-- <template 🎚️="on when isExpanded">
                     <tr>
                         <td colspan=4>
                             <medal-ment></medal-ment>
                         </td>
                     </tr>
-                </template>
+                </template> -->
 
             </template>
         </tbody>
