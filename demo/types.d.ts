@@ -6,6 +6,11 @@ export interface CountryMedalCountProps {
     bronze: number;
     total: number;
 }
+
+export interface CountryMedalCountActions {
+    
+}
+
 export interface NationalMedalListProps {
     ishList: CountryMedalCountProps[];
     countryMedalCount: CountryMedalCountProps[];

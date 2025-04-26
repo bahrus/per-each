@@ -27,3 +27,6 @@ export class NationalMedalList extends Scope {
         this.dispatchEvent(new Event('ishListChanged'));
     }
 }
+
+NationalMedalList.bootUp();
+customElements.define('my-element', NationalMedalList);
