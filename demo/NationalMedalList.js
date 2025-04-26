@@ -13,7 +13,13 @@ export class NationalMedalList extends Scope {
      */
     static config = {
         propInfo: {
-            ishList: {},
+            ishList: {
+                def: [
+                    {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
+                    {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
+                    {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
+                ]
+            },
         },
         compacts:{
             when_ishList_changes_call_disp: 0,
@@ -29,4 +35,4 @@ export class NationalMedalList extends Scope {
 }
 
 NationalMedalList.bootUp();
-customElements.define('my-element', NationalMedalList);
+customElements.define('national-medal-list', NationalMedalList);

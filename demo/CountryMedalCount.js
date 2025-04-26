@@ -27,3 +27,6 @@ export class CountryMedalCount extends Scope {
         }
     }
 }
+
+CountryMedalCount.bootUp();
+customElements.define('country-medal-count', CountryMedalCount);
