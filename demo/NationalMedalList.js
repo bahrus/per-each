@@ -20,9 +20,11 @@ export class NationalMedalList extends Scope {
                     {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
                 ]
             },
+            totalMedalCount: {},
         },
         compacts:{
             when_ishList_changes_call_disp: 0,
+            when_ishList_changes_call_calcTotal: 0,
         },
         xform:{
             '-o totalMedalCount': 0
@@ -31,6 +33,22 @@ export class NationalMedalList extends Scope {
 
     disp(self){
         this.dispatchEvent(new Event('ishListChanged'));
+    }
+
+    /**
+     * 
+     * @param {NationalMedalListProps} self 
+     */
+    calcTotal(self){
+        const {ishList} = self;
+        //const totalMedalCount = ishList.reduce((accumulator, currentValue) => accumulator + currentValue.total)
+        let totalMedalCount = 0;
+        for(const item of ishList){
+            totalMedalCount += item.total;
+        }
+        return ({
+            totalMedalCount
+        })
     }
 }
 

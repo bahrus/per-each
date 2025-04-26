@@ -22,13 +22,15 @@ class PerEach extends BE {
             statement: {},
             itemProp:{},
             listProp:{},
+            ish:{},
             //updateCnt:{def: 0},
         },
         compacts: {
             when_statement_changes_call_parse: 0,
+            when_ish_changes_call_hydrate: 0,
         },
         actions: {
-            hydrate: {
+            init: {
                 ifAllOf: ['itemProp', 'listProp'],
             }
         },
@@ -78,7 +80,7 @@ class PerEach extends BE {
      * @param {BAP} self 
      * @returns 
      */
-    async hydrate(self) {
+    async init(self) {
         const { itemProp, listProp, enhancedElement } = self;
         console.log('in hydrate');
         const closest = enhancedElement.closest(`[itemscope="${listProp}"`);
@@ -93,11 +95,23 @@ class PerEach extends BE {
         }else{
             ish = closest.ish;
         }
-        self.ish = ish;
+        
+        return /** @type {PAP} */({
+            ish,
+            
+        });
+    }
+
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
+    hydrate(self){
+        const {ish} = self;
         ish.addEventListener('ishListChanged', this);
         this.handleEvent();
         return /** @type {PAP} */({
-            //ish,
             resolved: true
         });
     }
