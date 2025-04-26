@@ -25,10 +25,7 @@ This could look as follows:
             {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
             ...
         ];
-        /**
-         * @type {Element}
-         */
-        #enhancedElement;
+ 
         get ishList(){
             return this.#ishList;
         }
@@ -48,7 +45,6 @@ This could look as follows:
             return this.#totalMedalCount;
         }
         attachedCallback(enhancedEl){
-            this.#enhancedElement = enhancedEl;
         }
     });
     customElements.define('my-item', class {

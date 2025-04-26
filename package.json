@@ -11,10 +11,10 @@
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-enhanced": "0.0.173",
-    "be-hive": "0.0.253",
-    "mount-observer": "0.0.47",
-    "trans-render": "0.0.892"
+    "be-enhanced": "0.0.174",
+    "be-hive": "0.0.254",
+    "mount-observer": "0.0.50",
+    "trans-render": "0.0.895"
   },
   "devDependencies": {
     "@playwright/test": "1.52.0",

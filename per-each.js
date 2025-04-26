@@ -19,7 +19,7 @@ class PerEach extends BE {
             statement: {}
         },
         compacts: {
-            when_statement_changes_invoke_parse: 0,
+            when_statement_changes_call_parse: 0,
         },
         actions: {
             hydrate: {
