@@ -13,7 +13,7 @@ This could look as follows:
 
 ```html
 <script>
-    customElements.define('my-list', class {
+    customElements.define('national-medal-list', class {
         static config = {
             xform:{
                 "-o totalMedalCount": 0
@@ -47,7 +47,7 @@ This could look as follows:
         attachedCallback(enhancedEl){
         }
     });
-    customElements.define('my-item', class {
+    customElements.define('country-medal-count', class {
         static config: {
             xform: {
                 "| rank": 0,
@@ -85,7 +85,7 @@ This could look as follows:
     });
 
 </script>
-<table itemscope=my-list>
+<table itemscope=national-medal-list>
     <thead>
         <tr>
             <th>Rank</th>
@@ -96,7 +96,7 @@ This could look as follows:
     </thead>
     <tbody>
         <tr 
-            per-each="my-item of my-list" -s=aria-rowindex>
+            per-each="country-medal-count of national-medal-list" -s=aria-rowindex>
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -108,7 +108,7 @@ This could look as follows:
 </table>
 ```
 
-In this example, the *my-item* custom element chooses to use trans-rendering as the binding mechanism, but *per-each* doesn't really care about that.  It just needs a custom element that implements:
+In this example, the *country-medal-count* custom element chooses to use trans-rendering as the binding mechanism, but *per-each* doesn't really care about that.  It just needs a custom element that implements:
 
 ```JavaScript
 interface IshFace{
@@ -124,7 +124,7 @@ Use lcXform prop
 Working with flat fragments
 
 ```html
-<table itemscope=my-list>
+<table itemscope=national-medal-list>
     <thead>
         <tr>
             <th>Rank</th>
@@ -135,7 +135,7 @@ Working with flat fragments
     </thead>
     <tbody>
         <tr 
-            per-each="my-item of my-list" per-each-modulo=3 -s=aria-rowindex>
+            per-each="country-medal-count of national-medal-list" per-each-modulo=3 -s=aria-rowindex>
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
