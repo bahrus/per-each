@@ -137,9 +137,7 @@ class PerEach extends BE {
             }
             firstElementChild.setAttribute('itemscope', itemProp);
             await bindish(clone); //TODO assign gingerly
-            //TODO optimize with a fragment
-            //TODO wait for element to raise event "resolved"
-            //parent?.appendChild(clone);
+            //TODO:  max buffer size
             fragment.appendChild(clone);
         }
         await waitForIdleNodes(nodesWeWantToWaitFor);
