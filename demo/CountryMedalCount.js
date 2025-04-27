@@ -20,7 +20,7 @@ export class CountryMedalCount extends Scope {
         },
         xform: {
             ':root': [
-                {o: 'idx',s: 'ariaRowIndex'},
+                {o: 'idx', s: 'ariaRowIndex'},
             ],
             '| rank': 0,
             '| noc': 0,
