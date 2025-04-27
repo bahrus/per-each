@@ -114,11 +114,19 @@ class PerEach extends BE {
         //TODO, use after
         const parent = enhancedElement.parentElement;
         let idx = idxStart;
+        const {waitForIdleNodes} = await import('mount-observer/MountObserver.js');
+        const fragment = document.createDocumentFragment();
+        /**
+         * @type {Array<Node>}
+         */
+        const nodesWeWantToWaitFor  = [];
         for(const item of ishList){
             /**
              * @type {DocumentFragment}
              */
             const clone =  /**@type {any} */(itemTemplate.content.cloneNode(true));
+            const children = Array.from(clone.children);
+            children.forEach(c => {nodesWeWantToWaitFor.push(c)});
             //TODO:  modify template element so don't have to do this with every loop
             /** @type {HasIsh & Element} */
             const firstElementChild = /** @type {any} */(clone.firstElementChild);
@@ -131,8 +139,11 @@ class PerEach extends BE {
             await bindish(clone); //TODO assign gingerly
             //TODO optimize with a fragment
             //TODO wait for element to raise event "resolved"
-            parent?.appendChild(clone);
+            //parent?.appendChild(clone);
+            fragment.appendChild(clone);
         }
+        await waitForIdleNodes(nodesWeWantToWaitFor);
+        enhancedElement.after(fragment);
     }
 }
 
