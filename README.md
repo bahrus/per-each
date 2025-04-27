@@ -99,7 +99,7 @@ This could look as follows:
 </table>
 ```
 
-In this example, the *country-medal-count* custom element chooses to use trans-rendering as the binding mechanism, but *per-each* doesn't really care about that.  It just needs a custom element that implements:
+In this example, the *country-medal-count* custom element chooses to use microdata ("itemprop") for biding clues, but *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
 
 ```JavaScript
 interface IshFace{
