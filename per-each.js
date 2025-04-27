@@ -133,15 +133,17 @@ class PerEach extends BE {
         let lastExisting = enhancedElement;
         for(const item of ishList){
             if(!isOutOfRange){
-                const existingIshNode = existingIshNodes[absIdx++];
+                const existingIshNode = existingIshNodes[absIdx];
                 if(existingIshNode !== undefined){
                     existingIshNode.ish = item;
                     lastExisting = existingIshNode;
+                    absIdx++;
                     continue;
                 }else{
                     isOutOfRange = true;
                 }
             }
+            absIdx++;
 
             /**
              * @type {DocumentFragment}
@@ -161,6 +163,12 @@ class PerEach extends BE {
             await bindish(clone); //TODO assign gingerly
             //TODO:  max buffer size
             fragment.appendChild(clone);
+        }
+        if(absIdx < existingIshNodes.length){
+            for(let i = absIdx; i < existingIshNodes.length; i++){
+                const existingIshNode = existingIshNodes[i];
+                existingIshNode.remove();
+            }
         }
         await waitForIdleNodes(nodesWeWantToWaitFor);
         lastExisting.after(fragment);

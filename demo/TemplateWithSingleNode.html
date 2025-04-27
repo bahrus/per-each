@@ -53,18 +53,27 @@
         </tbody>
     </table>
     <button onclick="addRows()">Add Rows</button>
-
+    <button onclick="removeRows()">Remove Rows</button>
     <script>
         function addRows() {
             const table = document.querySelector('table');
             const ish = table.ish;
-            ish.addEventListener('ishListChanged', function (e) {
-                console.log('ishListChanged', e.detail);
-            });
+
             const ishList = [...ish.ishList];
             ishList.push({rank: 4, noc: 'Australia', gold: 18, silver: 19, bronze: 16, total: 53});
             ishList.push({rank: 5, noc: 'France', gold: 16, silver: 26, bronze: 22, total: 64});
             ishList.push({rank: 6, noc: 'Netherlands', gold: 15, silver: 7, bronze: 12, total: 34});
+            table.ish.ishList = ishList;
+        }
+
+        function removeRows() {
+            const table = document.querySelector('table');
+            const ish = table.ish;
+
+            const ishList = [...ish.ishList];
+            ishList.pop();
+            ishList.pop();
+            ishList.pop();
             table.ish.ishList = ishList;
         }
         
