@@ -1,4 +1,4 @@
-# per-each (🍑) [TODO]
+# per-each (🍑) [WIP]
 
 *per-each* is a custom enhancement, based on the be-enhanced family of behiviors, that 
 
