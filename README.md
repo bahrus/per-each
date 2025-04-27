@@ -117,6 +117,10 @@ interface IshListFace extends IshFace{
 
 ... in the case of the DOM element that holds the list.
 
+## Libraries that help with developer ergonomics
+
+There is a certain amount of ceremony required to define the custom elements that are needed for per-each to be able to work.  If *per-each* is used frequently, it is advisable to use a helper library to reduce the boilerplate necessary, and the demos in this package do use such a helper library, which builds on [trans-rendering](https://github.com/bahrus/trans-render/wiki/V.--Mount%E2%80%90observing-transforms).
+
 ## Getting xform from custom elements
 Use lcXform prop
 

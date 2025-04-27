@@ -108,10 +108,7 @@ class PerEach extends BE {
         const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate} = self;
         const {ishList} = ish;
         if(ishList === undefined) return;
-        //for now, assume enhanced element is a template
-        //TODO build template element first
         const {bindish} = await import('mount-observer/bindish.js');
-        //TODO, use after
         const parent = enhancedElement.parentElement;
         let idx = idxStart;
         const {waitForIdleNodes} = await import('mount-observer/MountObserver.js');
