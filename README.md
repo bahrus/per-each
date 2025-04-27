@@ -48,15 +48,6 @@ This could look as follows:
         }
     });
     customElements.define('country-medal-count', class {
-        static config: {
-            xform: {
-                "| rank": 0,
-                "| noc": 0,
-                "| gold": 0,
-                "| silver": 0,
-                "| total": 0,
-            }
-        }
         //view model that gets passed in goes here by default
         #ish
         get ish(){
@@ -113,15 +104,27 @@ In this example, the *country-medal-count* custom element chooses to use trans-r
 ```JavaScript
 interface IshFace{
     attachedCallback(el: Element): Promise<void>;
+    ish: any;
 }
 ```
+... in the case of each iterating item, and
+
+```JavaScript
+interface IshListFace extends IshFace{
+    ishList: any[];
+}
+```
+
+... in the case of the DOM element that holds the list.
 
 ## Getting xform from custom elements
 Use lcXform prop
 
-## Setting attributes from the index
+## Referencing the count
 
-Working with flat fragments
+
+
+
 
 ```html
 <table itemscope=national-medal-list>

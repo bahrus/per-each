@@ -24,17 +24,19 @@ class PerEach extends BE {
             listProp:{},
             ish:{},
             mapIdxTo:{},
-            idxStart:{def: 0}, 
-            //updateCnt:{def: 0},
+            idxStart:{def: 0},
+            itemTemplate:{}, 
         },
         compacts: {
             when_statement_changes_call_parse: 0,
-            when_ish_changes_call_hydrate: 0,
         },
         actions: {
             init: {
                 ifAllOf: ['itemProp', 'listProp'],
-            }
+            },
+            hydrate: {
+                ifAllOf: ['ish', 'itemTemplate'],
+            },
         },
         positractions: [resolved, rejected],
     }
@@ -53,32 +55,6 @@ class PerEach extends BE {
         return /** @type {PAP} */({
             itemProp, listProp
         });
-    }
-
-    async handleEvent(){
-        const self = /** @type {BAP} */(/** @type {any} */(this));
-        const {ish, enhancedElement, itemProp, mapIdxTo, idxStart} = self;
-        const {ishList} = ish;
-        if(ishList === undefined) return;
-        //for now, assume enhanced element is a template
-        //TODO build template element first
-        const {bindish} = await import('mount-observer/bindish.js');
-        //TODO, use after
-        const parent = enhancedElement.parentElement;
-        let idx = idxStart;
-        for(const item of ishList){
-            const clone = enhancedElement.content.cloneNode(true);
-            //TODO:  modify template element so don't have to do this with every loop
-            const firstElementChild = clone.firstElementChild;
-            firstElementChild.ish = item;
-            if(mapIdxTo !== undefined){
-                firstElementChild.ish[mapIdxTo] = idx++;
-            }
-            firstElementChild.setAttribute('itemscope', itemProp);
-            await bindish(clone); //TODO assign gingerly
-            //TODO optimize with a fragment
-            parent?.appendChild(clone);
-        }
     }
 
     /**
@@ -100,10 +76,13 @@ class PerEach extends BE {
         }else{
             ish = closest.ish;
         }
-        
+        let itemTemplate = enhancedElement;
+        if(!(itemTemplate instanceof HTMLTemplateElement)){
+            throw 'NI';
+        }
         return /** @type {PAP} */({
             ish,
-            
+            itemTemplate
         });
     }
 
@@ -119,6 +98,37 @@ class PerEach extends BE {
         return /** @type {PAP} */({
             resolved: true
         });
+    }
+
+    async handleEvent(){
+        const self = /** @type {BAP} */(/** @type {any} */(this));
+        const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate} = self;
+        const {ishList} = ish;
+        if(ishList === undefined) return;
+        //for now, assume enhanced element is a template
+        //TODO build template element first
+        const {bindish} = await import('mount-observer/bindish.js');
+        //TODO, use after
+        const parent = enhancedElement.parentElement;
+        let idx = idxStart;
+        for(const item of ishList){
+            /**
+             * @type {DocumentFragment}
+             */
+            const clone =  /**@type {any} */(itemTemplate.content.cloneNode(true));
+            //TODO:  modify template element so don't have to do this with every loop
+            /** @type {HasIsh & Element} */
+            const firstElementChild = /** @type {any} */(clone.firstElementChild);
+            if(firstElementChild === null) throw 404;
+            firstElementChild.ish = item;
+            if(mapIdxTo !== undefined){
+                firstElementChild.ish[mapIdxTo] = idx++;
+            }
+            firstElementChild.setAttribute('itemscope', itemProp);
+            await bindish(clone); //TODO assign gingerly
+            //TODO optimize with a fragment
+            parent?.appendChild(clone);
+        }
     }
 }
 
