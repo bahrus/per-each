@@ -120,7 +120,29 @@ class PerEach extends BE {
          * @type {Array<Node>}
          */
         const nodesWeWantToWaitFor  = [];
+        const existingIshNodes = [];
+        let ns = enhancedElement;
+        while(ns !== null){
+            if(ns.getAttribute('itemscope') === itemProp){
+                existingIshNodes.push(ns);
+            }
+            ns = ns.nextElementSibling;
+        }
+        let absIdx = 0;
+        let isOutOfRange = false;
+        let lastExisting = enhancedElement;
         for(const item of ishList){
+            if(!isOutOfRange){
+                const existingIshNode = existingIshNodes[absIdx++];
+                if(existingIshNode !== undefined){
+                    existingIshNode.ish = item;
+                    lastExisting = existingIshNode;
+                    continue;
+                }else{
+                    isOutOfRange = true;
+                }
+            }
+
             /**
              * @type {DocumentFragment}
              */
@@ -141,7 +163,7 @@ class PerEach extends BE {
             fragment.appendChild(clone);
         }
         await waitForIdleNodes(nodesWeWantToWaitFor);
-        enhancedElement.after(fragment);
+        lastExisting.after(fragment);
     }
 }
 
