@@ -27,7 +27,8 @@
         </thead>
         <tbody>
 
-                <tr per-each="country-medal-count of national-medal-list"
+            <tr 
+                per-each="country-medal-count of national-medal-list"
                 per-each-map-idx-to="idx"
                 per-each-idx-start="1" -s=aria-rowindex>
                     <td><plus-minus></plus-minus></td>
@@ -37,7 +38,7 @@
                     <td itemprop=silver></td>
                     <td itemprop=bronze></td>
                     <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
-                </tr>
+            </tr>
             </template>
         </tbody>
     </table>
