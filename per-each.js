@@ -78,7 +78,10 @@ class PerEach extends BE {
         }
         let itemTemplate = enhancedElement;
         if(!(itemTemplate instanceof HTMLTemplateElement)){
-            throw 'NI';
+            itemTemplate = document.createElement('template');
+            itemTemplate.innerHTML = enhancedElement.outerHTML;
+            itemTemplate.content.firstElementChild?.removeAttribute('per-each');
+            enhancedElement.innerHTML = '';
         }
         return /** @type {PAP} */({
             ish,
