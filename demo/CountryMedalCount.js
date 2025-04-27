@@ -16,8 +16,12 @@ export class CountryMedalCount extends Scope {
             silver: {},
             bronze: {},
             total: {},
+            idx: {},
         },
         xform: {
+            ':root': [
+                {o: 'idx',s: 'ariaRowIndex'},
+            ],
             '| rank': 0,
             '| noc': 0,
             '| gold': 0,

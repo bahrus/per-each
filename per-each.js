@@ -23,6 +23,7 @@ class PerEach extends BE {
             itemProp:{},
             listProp:{},
             ish:{},
+            mapIdxTo:{},
             //updateCnt:{def: 0},
         },
         compacts: {
@@ -55,7 +56,7 @@ class PerEach extends BE {
 
     async handleEvent(){
         const self = /** @type {BAP} */(/** @type {any} */(this));
-        const {ish, enhancedElement, itemProp} = self;
+        const {ish, enhancedElement, itemProp, mapIdxTo} = self;
         const {ishList} = ish;
         if(ishList === undefined) return;
         //for now, assume enhanced element is a template
@@ -63,11 +64,15 @@ class PerEach extends BE {
         const {bindish} = await import('mount-observer/bindish.js');
         //TODO, use after
         const parent = enhancedElement.parentElement;
+        let idx = -0;
         for(const item of ishList){
             const clone = enhancedElement.content.cloneNode(true);
             //TODO:  modify template element so don't have to do this with every loop
             const firstElementChild = clone.firstElementChild;
             firstElementChild.ish = item;
+            if(mapIdxTo !== undefined){
+                firstElementChild.ish[mapIdxTo] = idx++;
+            }
             firstElementChild.setAttribute('itemscope', itemProp);
             await bindish(clone); //TODO assign gingerly
             //TODO optimize with a fragment

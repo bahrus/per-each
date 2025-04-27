@@ -8,12 +8,17 @@ import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
  */
 export const emc = {
     base: 'per-each',
+    branches: ['', 'map-idx-to'],
     enhPropKey: 'perEach',
     map: {
         '0.0':{
             instanceOf: 'String',
             mapsTo: 'statement',
-        }
+        },
+        '1.0': {
+            instanceOf: 'String',
+            mapsTo: 'mapIdxTo',
+        },
     },
     importEnh: async () => {
         const { PerEach } = await import('./per-each.js');

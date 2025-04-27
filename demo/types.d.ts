@@ -5,6 +5,7 @@ export interface CountryMedalCountProps {
     silver: number;
     bronze: number;
     total: number;
+    idx: number;
 }
 
 export interface CountryMedalCountActions {
