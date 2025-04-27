@@ -22,12 +22,7 @@ export class CountryMedalCount extends Scope {
             ':root': [
                 {o: 'idx', s: 'ariaRowIndex'},
             ],
-            '| rank': 0,
-            '| noc': 0,
-            '| gold': 0,
-            '| silver': 0,
-            '| bronze': 0,
-            '| total': 0,
+            '| rank': 0, '| noc': 0, '| gold': 0, '| silver': 0, '| bronze': 0, '| total': 0,
         }
     }
 }
