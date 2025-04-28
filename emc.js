@@ -29,7 +29,8 @@ export const emc = {
         const { PerEach } = await import('./per-each.js');
         return PerEach;
     },
-}
+    mapEmcTo: 'emc'
+};
 
 const mose = seed(emc);
 MountObserver.synthesize(document, BeHive, mose); 

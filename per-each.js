@@ -25,7 +25,8 @@ class PerEach extends BE {
             ish:{},
             mapIdxTo:{},
             idxStart:{def: 0},
-            itemTemplate:{}, 
+            itemTemplate:{},
+            temp: {}, 
         },
         compacts: {
             when_statement_changes_call_parse: 0,
@@ -49,7 +50,7 @@ class PerEach extends BE {
      * @returns 
      */
     parse(self){
-        const { statement } = self;
+        const { statement} = self;
         const split = statement.split(' of ').map(s => s.trim());
         const [itemProp, listProp] = split;
         return /** @type {PAP} */({
@@ -63,7 +64,7 @@ class PerEach extends BE {
      * @returns 
      */
     async init(self) {
-        const { itemProp, listProp, enhancedElement } = self;
+        const { itemProp, listProp, enhancedElement, emc } = self;
         const closest = enhancedElement.closest(`[itemscope="${listProp}"`);
         if(closest === null) throw 404;
         /**
@@ -80,7 +81,9 @@ class PerEach extends BE {
         if(!(itemTemplate instanceof HTMLTemplateElement)){
             itemTemplate = document.createElement('template');
             itemTemplate.innerHTML = enhancedElement.outerHTML;
-            itemTemplate.content.firstElementChild?.removeAttribute('per-each');
+            const {base} = emc;
+            console.log({base});
+            itemTemplate.content.firstElementChild?.removeAttribute(base);
             enhancedElement.innerHTML = '';
         }
         return /** @type {PAP} */({
