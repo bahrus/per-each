@@ -24,7 +24,7 @@ class PerEach extends BE {
             listProp:{},
             ish:{},
             mapIdxTo:{},
-            idxStart:{def: 0},
+            idxStart:{def: 1},
             itemTemplate:{},
             temp: {}, 
         },
