@@ -26,7 +26,7 @@ class PerEach extends BE {
             mapIdxTo:{},
             idxStart:{def: 1},
             itemTemplate:{},
-            temp: {}, 
+            emc: {},
         },
         compacts: {
             when_statement_changes_call_parse: 0,
