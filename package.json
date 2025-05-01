@@ -13,8 +13,8 @@
   "dependencies": {
     "be-enhanced": "0.0.176",
     "be-hive": "0.0.257",
-    "mount-observer": "0.0.53",
-    "trans-render": "0.0.897"
+    "mount-observer": "0.0.55",
+    "trans-render": "0.0.899"
   },
   "devDependencies": {
     "@playwright/test": "1.52.0",

@@ -79,12 +79,16 @@ class PerEach extends BE {
         }
         let itemTemplate = enhancedElement;
         if(!(itemTemplate instanceof HTMLTemplateElement)){
-            itemTemplate = document.createElement('template');
-            itemTemplate.innerHTML = enhancedElement.outerHTML;
+            /**
+             * @type {HTMLTemplateElement}
+             */
+            const itemTemplate2 = document.createElement('template');
+            itemTemplate2.innerHTML = enhancedElement.outerHTML;
             const {base} = emc;
             console.log({base});
-            itemTemplate.content.firstElementChild?.removeAttribute(base);
+            itemTemplate2.content.firstElementChild?.removeAttribute(base);
             enhancedElement.innerHTML = '';
+            itemTemplate = itemTemplate2;
         }
         return /** @type {PAP} */({
             ish,
@@ -108,7 +112,7 @@ class PerEach extends BE {
 
     async handleEvent(){
         const self = /** @type {BAP} */(/** @type {any} */(this));
-        const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate} = self;
+        const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate, emc} = self;
         const {ishList} = ish;
         if(ishList === undefined) return;
         const {bindish} = await import('mount-observer/bindish.js');
@@ -160,6 +164,21 @@ class PerEach extends BE {
                 firstElementChild.ish[mapIdxTo] = idx++;
             }
             firstElementChild.setAttribute('itemscope', itemProp);
+            if(children.length > 1){
+                const {base} = emc;
+                let itemref = firstElementChild.getAttribute('itemref') || '';
+                for(let i = 1, ii = children.length; i < ii; i++){
+                    const child = children[i];
+                    if(!child.id){
+                        const {getCount} = await import('trans-render/dss/tref/getCount.js');
+                        child.id = `${base}-${getCount(base + '')}`;
+                        
+                        itemref += ' ' + child.id;
+                        //el.setAttribute('itemref', itemref.trim());
+                    }
+                }
+                firstElementChild.setAttribute('itemref', itemref.trim());
+            }
             await bindish(clone); //TODO assign gingerly
             //TODO:  max buffer size
             fragment.appendChild(clone);
