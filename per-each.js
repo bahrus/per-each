@@ -174,7 +174,6 @@ class PerEach extends BE {
                         child.id = `${base}-${getCount(base + '')}`;
                         
                         itemref += ' ' + child.id;
-                        //el.setAttribute('itemref', itemref.trim());
                     }
                 }
                 firstElementChild.setAttribute('itemref', itemref.trim());
