@@ -9,10 +9,15 @@
         import './CountryMedalCount.js';
         import './NationalMedalList.js';
         import '/🍑.js';
+        import 'be-switched/🎚️.js';
      </script>
 </head>
 <body>
-
+    <label>
+        <input name=showTotals type=checkbox>
+        Show Totals
+    </label>
+    
     <table itemscope=national-medal-list>
         <caption>Medal List Summer 2024</caption>
         <thead>
@@ -39,11 +44,14 @@
                     <td itemprop=silver></td>
                     <td itemprop=bronze></td>
                 </tr>
-                <tr class=totals>
-                    <td colspan= 6>
-                        <span itemprop=total></span> of <span -o=totalMedalCount></span>
-                    </td>
-                </tr>
+                <template 🎚️='on when @showTotals'>
+                    <tr class=totals>
+                        <td colspan= 6>
+                            <span itemprop=total></span> of <span -o=totalMedalCount></span>
+                        </td>
+                    </tr>
+                </template>
+
 
             </template>
         </tbody>
