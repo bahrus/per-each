@@ -183,9 +183,11 @@ class PerEach extends BE {
             fragment.appendChild(clone);
         }
         if(absIdx < existingIshNodes.length){
+            const {deleteEl} = await import('trans-render/dss/tref/deleteEl.js');
             for(let i = absIdx; i < existingIshNodes.length; i++){
                 const existingIshNode = existingIshNodes[i];
-                existingIshNode.remove();
+                //existingIshNode.remove();
+                deleteEl(existingIshNode);
             }
         }
         await waitForIdleNodes(nodesWeWantToWaitFor);
