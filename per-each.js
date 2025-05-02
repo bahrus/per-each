@@ -186,11 +186,19 @@ class PerEach extends BE {
             const {deleteEl} = await import('trans-render/dss/tref/deleteEl.js');
             for(let i = absIdx; i < existingIshNodes.length; i++){
                 const existingIshNode = existingIshNodes[i];
-                //existingIshNode.remove();
-                deleteEl(existingIshNode);
+                if(existingIshNode.hasAttribute('itemref')){
+                    deleteEl(existingIshNode);
+                }else{
+                    existingIshNode.remove();
+                }
+                
             }
         }
         await waitForIdleNodes(nodesWeWantToWaitFor);
+        if(lastExisting.hasAttribute('itemref')){
+            const {tail} = await import('trans-render/dss/tref/tail.js');
+            lastExisting = tail(lastExisting);
+        }
         lastExisting.after(fragment);
     }
 }
