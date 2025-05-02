@@ -148,7 +148,12 @@ class PerEach extends BE {
                 }
             }
             absIdx++;
-
+            let templToClone = itemTemplate;
+            const externalRefId = templToClone.dataset.blowDryRef;
+            if (externalRefId){
+                templToClone = window[externalRefId];
+            }
+                
             /**
              * @type {DocumentFragment}
              */

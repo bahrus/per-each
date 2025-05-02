@@ -99,11 +99,12 @@ This could look as follows:
 </table>
 ```
 
-In this example, the *country-medal-count* custom element chooses to use microdata ("itemprop") for biding clues, but *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
+In this example, the *country-medal-count* custom element chooses to use microdata ("itemprop") for binding clues, but *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
 
 ```JavaScript
 interface IshFace{
     attachedCallback(el: Element): Promise<void>;
+    inScopeCallback(el: Element): Promise<void>;
     ish: any;
 }
 ```
@@ -121,8 +122,7 @@ interface IshListFace extends IshFace{
 
 What we've seen above is that there is a certain amount of ceremony required to define the custom elements that are needed for per-each to be able to work.  If *per-each* is used frequently, it is advisable to use a helper library to reduce the boilerplate necessary, and the demos in this package do use such a helper library, which builds on [trans-rendering](https://github.com/bahrus/trans-render/wiki/V.--Mount%E2%80%90observing-transforms).
 
-## Getting xform from custom elements
-Use lcXform prop
+
 
 ## Referencing the count
 
@@ -142,7 +142,10 @@ Use lcXform prop
     </thead>
     <tbody>
         <tr 
-            per-each="country-medal-count of national-medal-list" per-each-modulo=3 -s=aria-rowindex>
+            per-each="country-medal-count of national-medal-list" 
+            per-each-map-idx-to="idx"
+            per-each-idx-start="1" 
+            -s=aria-rowindex>
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -158,5 +161,4 @@ Use lcXform prop
 </table>
 ```
 
-Limitations -- can only work with adjacent elements as part of fragment
-
+This will set property "idx" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
