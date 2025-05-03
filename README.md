@@ -72,99 +72,89 @@ Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [
 
 What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather Object.assign / shallow merges (?) the passed in object into the custom element.  That is if the object being set is not an array.
 
-In the case getting passed in an array, the ish property setter sets the custom element's "ishList" property.  So these "scoped custom elements" that wish to provide a list of data are expected follow the convention of defining that property with name "ishList", which *per-each* assumes.
+In the case of getting passed in an array, the ish property setter sets the custom element's "ishList" property.  So these "scoped custom elements" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
 
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such custom elements trivial:
 
-```html
-<script>
-    customElements.define('national-medal-list', class {
-        
-        #ishList = [
-            {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
-            {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
-            {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
-            ...
-        ];
- 
-        /** optional */
-        get ishList(){
-            return this.#ishList;
-        }
-        set ishList(nv){
-            //we could filter the list if applicable first
-            this.#ishList = nv;
-            this.#calculateTotal();
-            this.dispatchEvent(new Event('ishListChanged'));
-        }
+```JavaScript
 
-        /** just an example, entirely optional */
-        #calculateTotal(){
-            if(this.#ishList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
-        }
+customElements.define('national-medal-list', class {
+    /**
+        * Typically the list of data will be passed in via the ish and/or ish.ishList property,
+        * or retrieved internally via fetch, for example
+    */
+    #ishList = [
+        {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
+        {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
+        {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
+        ...
+    ];
 
-        #totalMedalCount;
-        get totalMedalCount(){
-            return this.#totalMedalCount;
-        }
-        attachedCallback(enhancedEl){
-            //do any rendering that is desired on the enhancedEl
-        }
-    });
-    customElements.define('country-medal-count', class {
-        //view model that gets passed in goes here by default
-        #ish
-        /** optional */
-        get ish(){
-            return this.#ish;
-        }
+    /** optional */
+    get ishList(){
+        return this.#ishList;
+    }
+    /** required */
+    set ishList(nv){
+        //we could filter the list if applicable first
+        this.#ishList = nv;
+        //Totally optional
+        this.#calculateTotal();
+        // required by per-each
+        this.dispatchEvent(new Event('ishListChanged'));
+    }
 
-        set ish(nv){
-            this.#ish = nv;
-            //do whatever the custom element wants to do as far as binding the values of ish 
-            //to the firstElementOfClonedElement, and adding needed bindings and to additional elements linked via itemref if applicable
-            //once finished, raise an event "resolved" at least the first time
-            // so the looping mechanism knows it is ready to add to the live DOM tree:
+    /** just an example, entirely optional */
+    #calculateTotal(){
+        if(this.#ishList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
+    }
 
-        }
+    #totalMedalCount;
+    get totalMedalCount(){
+        return this.#totalMedalCount;
+    }
+    attachedCallback(enhancedEl){
+        //do any rendering that is desired on the enhancedEl
+    }
+});
 
-        /** Optional.  First element of cloned template gets passed in here **/
-        async attachedCallback(element){
-            //binding / event handling added here if needed 
-        }
+customElements.define('country-medal-count', class {
+    //view model that gets passed in goes here by default
+    #ish
+    /** optional */
+    get ish(){
+        return this.#ish;
+    }
 
-        /** Optional.  Elements related via the itemref attribute get passed in here:*/
-        async inScopeCallback(element){
-            //binding / event handling added here
-        }
+    set ish(nv){
+        this.#ish = nv;
+        //do whatever the custom element wants to do as far as binding the values of ish 
+        //to the firstElementOfClonedElement, 
+        // and adding needed bindings and to additional elements linked via itemref if applicable
+        //once finished, raise an event "resolved" at least the first time
+        // so the looping mechanism knows it is ready to add to the live DOM tree:
 
-    });
+    }
 
-</script>
-<table itemscope=national-medal-list>
-    <thead>
-        <tr>
-            <th>Rank</th>
-            <th>NOC</th>
-            <th>Gold</th>
-            <th>Silver</th>
-            <th>Total</th>
-    </thead>
-    <tbody>
-        <tr 
-            per-each="country-medal-count of national-medal-list" -s=aria-rowindex>
-            <td itemprop=rank></td>
-            <td itemprop=noc></td>
-            <td itemprop=gold></td>
-            <td itemprop=silver></td>
-            <td itemprop=bronze></td>
-            <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
-        </tr>
-    </tbody>
-</table>
+    /** Optional.  First element of cloned template gets passed in here **/
+    async attachedCallback(element){
+        //binding / event handling added here if needed 
+    }
+
+    /** Optional.  
+        * Any elements other than the first element of the template 
+        * get passed in here via the itemref attribute get passed in here:*/
+    async inScopeCallback(element){
+        //binding / event handling added here
+    }
+
+});
+
+
+
 ```
 
-This markup is used in the demo examples of this package, and in those demo's the *country-medal-count* custom element chooses to use microdata ("itemprop") for binding clues, but *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
+The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country-medal-count* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
 
 ```JavaScript
 interface IshFace{
