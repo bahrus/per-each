@@ -184,7 +184,9 @@ class PerEach extends BE {
                 }
                 firstElementChild.setAttribute('itemref', itemref.trim());
             }
-            await bindish(clone); //TODO assign gingerly
+            await bindish(clone, {
+                csr: true,
+            }); //TODO assign gingerly
             //TODO:  max buffer size
             fragment.appendChild(clone);
         }
