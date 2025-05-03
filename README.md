@@ -65,7 +65,7 @@ All that *per-each* does is clone the tr element multiple times, and set the att
 </table>
 ```
 
-Being that *per-each* is a  *be-hive* based custom enhancement, that builds on *mount-observer*, which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), those itemscope attributes:
+Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [*mount-observer*](https://github.com/bahrus/mount-observer), which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), those itemscope attributes:
 
 1.  Instantiate a custom element by that name.
 2.  Attaches that custom element to the element it adorns, with property "ish"
