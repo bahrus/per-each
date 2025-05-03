@@ -67,9 +67,12 @@ All that *per-each* does is clone the tr element multiple times, and set the att
 
 Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [*mount-observer*](https://github.com/bahrus/mount-observer), which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), those itemscope attributes:
 
-1.  Instantiate a custom element by that name.
-2.  Attaches that custom element to the element it adorns, with property "ish"
-3.  In the case of lists, follows a convention that can be leveraged by multiple libraries
+1.  Causes the instantiation a custom element by that name....
+2.  ... which gets attached to the element the itemscope attribute adorns, with dynamic property key "ish"
+
+What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather Object.assign / shallow merges (?) the passed in object into the custom element.  That is if the object being set is not an array.
+
+In the case getting passed in an array, the ish property setter , follows a convention that can be leveraged by multiple libraries
 
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such custom elements trivial:
 
