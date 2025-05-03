@@ -14,7 +14,7 @@ On the web presentation layer, since there is no built-in web standard support f
 
 Custom Elements have made great inroads in avoiding the framework trap.  However, they fall short when it comes to generating the light children, without a little nudge.
 
-This enhancement, instead, builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that gives custom elements that nudge -- the ability to be attached automatically referenced by the itemscope attribute.
+This enhancement, instead, builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that gives custom elements that nudge -- the ability to be attached automatically to an element based on the itemscope attribute.
 
 ## Example 1 -- No template
 
