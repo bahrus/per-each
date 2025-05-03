@@ -72,7 +72,7 @@ Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [
 
 What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather Object.assign / shallow merges (?) the passed in object into the custom element.  That is if the object being set is not an array.
 
-In the case getting passed in an array, the ish property setter , follows a convention that can be leveraged by multiple libraries
+In the case getting passed in an array, the ish property setter sets the custom element's "ishList" property.  So these "scoped custom elements" that wish to provide a list of data are expected follow the convention of defining that property with name "ishList", which *per-each* assumes.
 
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such custom elements trivial:
 
