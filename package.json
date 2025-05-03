@@ -1,6 +1,6 @@
 {
   "name": "per-each",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "",
   "main": "per-each.js",
   "module": "per-each.js",
@@ -13,7 +13,7 @@
   "dependencies": {
     "be-enhanced": "0.0.178",
     "be-hive": "0.0.259",
-    "mount-observer": "0.0.56",
+    "mount-observer": "0.0.57",
     "trans-render": "0.0.900"
   },
   "devDependencies": {
