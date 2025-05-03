@@ -29,8 +29,11 @@
 
             <tr 
                 per-each="country-medal-count of national-medal-list"
-                per-each-map-idx-to="idx"
-                per-each-idx-start="1" -s=aria-rowindex>
+                per-each-map-idx-to=idx
+                per-each-idx-start=1
+                per-each-idle-timeout=10000
+                -s=aria-rowindex
+            >
                     <td><plus-minus></plus-minus></td>
                     <td itemprop=rank></td>
                     <td itemprop=noc></td>

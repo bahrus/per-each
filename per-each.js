@@ -27,6 +27,7 @@ class PerEach extends BE {
             idxStart:{def: 1},
             itemTemplate:{},
             emc: {},
+            idleTimeout: {},
         },
         compacts: {
             when_statement_changes_call_parse: 0,
@@ -112,7 +113,7 @@ class PerEach extends BE {
 
     async handleEvent(){
         const self = /** @type {BAP} */(/** @type {any} */(this));
-        const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate, emc} = self;
+        const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate, emc, idleTimeout} = self;
         const {ishList} = ish;
         if(ishList === undefined) return;
         const {bindish} = await import('mount-observer/bindish.js');
@@ -199,7 +200,7 @@ class PerEach extends BE {
                 
             }
         }
-        await waitForIdleNodes(nodesWeWantToWaitFor);
+        await waitForIdleNodes(nodesWeWantToWaitFor, idleTimeout);
         if(lastExisting.hasAttribute('itemref')){
             const {tail} = await import('trans-render/dss/tref/tail.js');
             lastExisting = tail(lastExisting);
