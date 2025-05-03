@@ -198,3 +198,37 @@ What we've seen above is that there is a certain amount of ceremony required to 
 ```
 
 This sets property "myIndex" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
+
+## Viewing Locally
+
+Any web server that serves static files with server-side includes will do but...
+
+1.  Install git.
+2.  Fork/clone this repo.
+3.  Install node.
+4.  Install Python 3 or later.
+5.  Open command window to folder where you cloned this repo.
+6.  > npm install
+7.  > npm run serve
+8.  Open http://localhost:8000/demo in a modern browser.
+
+## Running Tests
+
+```
+> npm run test
+```
+
+## Using from ESM Module:
+
+```JavaScript
+import 'per-each/per-each.js';
+```
+
+## Using from CDN:
+
+```html
+<script type=module crossorigin=anonymous>
+    import 'https://esm.run/per-each';
+</script>
+```
+
