@@ -166,7 +166,7 @@ This markup is used in the demo examples of this package, and in those demo's th
 ```JavaScript
 interface IshFace{
     /** optional */
-    attachedCallback?(el: Element): Promise<void>;
+    attachedCallback?(el: Element, {csr?: boolean /* TODO */}): Promise<void>;
     /** optional */
     inScopeCallback?(el: Element): Promise<void>;
     /*  optional */
