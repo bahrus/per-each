@@ -1,6 +1,6 @@
 # per-each (🍑) [WIP]
 
-*per-each* is a custom enhancement, based on the be-enhanced family of behiviors, that 
+*per-each* is a custom element enhancement, based on the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [behiviors](https://github.com/bahrus/be-hive), that 
 
 1.  Provides for looping support, 
 2.  Imposes little to no requirements as far as binding syntax.
@@ -67,12 +67,6 @@ This could look as follows:
             //binding / event handling added here
         }
 
-        //do we need this?
-        forget(fragmentChildren){
-            //release event handlers as needed, especially if the element will remain for whatever reason
-        }
-
-
     });
 
 </script>
@@ -126,10 +120,6 @@ What we've seen above is that there is a certain amount of ceremony required to 
 
 ## Referencing the count
 
-
-
-
-
 ```html
 <table itemscope=national-medal-list>
     <thead>
@@ -143,7 +133,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
     <tbody>
         <tr 
             per-each="country-medal-count of national-medal-list" 
-            per-each-map-idx-to="idx"
+            per-each-map-idx-to="myIndex"
             per-each-idx-start="1" 
             -s=aria-rowindex>
             <td itemprop=rank></td>
@@ -161,4 +151,4 @@ What we've seen above is that there is a certain amount of ceremony required to 
 </table>
 ```
 
-This will set property "idx" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
+This sets property "myIndex" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
