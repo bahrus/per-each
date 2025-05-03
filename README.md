@@ -65,9 +65,9 @@ All that *per-each* does is clone the tr element multiple times, and set the att
 </table>
 ```
 
-Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [*mount-observer*](https://github.com/bahrus/mount-observer), which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), those itemscope attributes:
+Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [*mount-observer*](https://github.com/bahrus/mount-observer), which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), each such  itemscope attribute:
 
-1.  Causes the instantiation a custom element by that name....
+1.  Causes the instantiation of a custom element by that name....
 2.  ... which gets attached to the element the itemscope attribute adorns, with dynamic property key "ish"
 
 What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather Object.assign / shallow merges (?) the passed in object into the custom element.  That is if the object being set is not an array.
@@ -119,22 +119,6 @@ customElements.define('national-medal-list', class {
 });
 
 customElements.define('country-medal-count', class {
-    //view model that gets passed in goes here by default
-    #ish
-    /** optional */
-    get ish(){
-        return this.#ish;
-    }
-
-    set ish(nv){
-        this.#ish = nv;
-        //do whatever the custom element wants to do as far as binding the values of ish 
-        //to the firstElementOfClonedElement, 
-        // and adding needed bindings and to additional elements linked via itemref if applicable
-        //once finished, raise an event "resolved" at least the first time
-        // so the looping mechanism knows it is ready to add to the live DOM tree:
-
-    }
 
     /** Optional.  First element of cloned template gets passed in here **/
     async attachedCallback(element){
@@ -162,8 +146,6 @@ interface IshFace{
     attachedCallback?(el: Element, {csr?: boolean /* TODO */}): Promise<void>;
     /** optional */
     inScopeCallback?(el: Element): Promise<void>;
-    /*  optional */
-    ish?: any;
 }
 ```
 ... in the case of each iterating item, and
