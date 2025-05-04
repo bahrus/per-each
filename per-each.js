@@ -84,10 +84,16 @@ class PerEach extends BE {
              * @type {HTMLTemplateElement}
              */
             const itemTemplate2 = document.createElement('template');
+            enhancedElement.removeAttribute('itemscope');
             itemTemplate2.innerHTML = enhancedElement.outerHTML;
             const {base} = emc;
-            itemTemplate2.content.firstElementChild?.removeAttribute(base);
-            enhancedElement.removeAttribute('itemscope');
+            const {branches} = emc;
+            for(const branch of branches){
+                const app = branch ? `-${branch}` : '';
+                itemTemplate2.content.firstElementChild?.removeAttribute(`${base}${app}`);
+            }
+            
+            
             enhancedElement.innerHTML = '';
             if('hidden' in enhancedElement){
                 enhancedElement.hidden = true;
