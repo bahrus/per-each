@@ -19,7 +19,7 @@ class PerEach extends BE {
     static config = {
         propInfo:{
             ...propInfo,
-            statement: {},
+            each: {},
             itemProp:{},
             listProp:{},
             ish:{},
@@ -30,7 +30,7 @@ class PerEach extends BE {
             idleTimeout: {},
         },
         compacts: {
-            when_statement_changes_call_parse: 0,
+            when_each_changes_call_parse: 0,
         },
         actions: {
             init: {
@@ -51,8 +51,8 @@ class PerEach extends BE {
      * @returns 
      */
     parse(self){
-        const { statement} = self;
-        const split = statement.split(' of ').map(s => s.trim());
+        const { each} = self;
+        const split = each.split(' of ').map(s => s.trim());
         const [itemProp, listProp] = split;
         return /** @type {PAP} */({
             itemProp, listProp
@@ -86,7 +86,6 @@ class PerEach extends BE {
             const itemTemplate2 = document.createElement('template');
             itemTemplate2.innerHTML = enhancedElement.outerHTML;
             const {base} = emc;
-            console.log({base});
             itemTemplate2.content.firstElementChild?.removeAttribute(base);
             enhancedElement.innerHTML = '';
             itemTemplate = itemTemplate2;

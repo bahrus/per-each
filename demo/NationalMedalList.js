@@ -47,7 +47,6 @@ export class NationalMedalList extends Scope {
         for(const item of ishList){
             totalMedalCount += item.total;
         }
-        console.log('totalMedalCount', totalMedalCount);
         return ({
             totalMedalCount
         })

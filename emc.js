@@ -8,12 +8,12 @@ import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
  */
 export const emc = {
     base: 'per-each',
-    branches: ['', 'map-idx-to', 'idx-start', 'idle-timeout'],
+    branches: ['', 'map-idx-to', 'idx-start', 'idle-timeout', 'options'],
     enhPropKey: 'perEach',
     map: {
         '0.0':{
             instanceOf: 'String',
-            mapsTo: 'statement',
+            mapsTo: 'each',
         },
         '1.0': {
             instanceOf: 'String',
@@ -26,7 +26,11 @@ export const emc = {
         '3.0': {
             instanceOf: 'Number',
             mapsTo: 'idleTimeout'
-        }
+        },
+        '4.0': {
+            instanceOf: 'Object',
+            mapsTo: '.'
+        },
 
     },
     importEnh: async () => {

@@ -199,6 +199,41 @@ What we've seen above is that there is a certain amount of ceremony required to 
 
 This sets property "myIndex" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
 
+As you can see, the markup gets a little clunky when specifying numerous options.  Two things can be done to reduce the manual effort in configuring the component:
+
+1.  Adopt a smaller name
+2.  Utilize the options setting
+
+It is easy to define an alternative name for this enhancement that can be used in less formal setting -- names that aren't registered in some package management system like npm, that may conflict with other libraries.
+
+One alternative name that this package supports is the emoji:  🍑.
+
+Also, there's one setting that allows all the others to be specified via the more compact (but more error prone, less semantic) JSON.  So the example above:
+
+```html
+<tr 
+    per-each="country-medal-count of national-medal-list" 
+    per-each-map-idx-to="myIndex"
+    per-each-idx-start="1"
+>
+...
+</tr>
+```
+
+... can be mocked up as:
+
+```html
+<tr 
+    🍑-options='{
+        "each": "country-medal-count of national-medal-list",
+        "mapIdxTo": "myIndex",
+        "idxStart": 1
+    }'
+>
+...
+</tr>
+```
+
 ## SSR
 
 Due to the heavy reliance on HTML attributes to keep tings in sync, this element enhancement integrates semslessly with server rendered html.  For example, expand the section below to see what works:
