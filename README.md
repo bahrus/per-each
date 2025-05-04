@@ -199,6 +199,81 @@ What we've seen above is that there is a certain amount of ceremony required to 
 
 This sets property "myIndex" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
 
+## SSR
+
+Due to the heavy reliance on HTML attributes to keep tings in sync, this element enhancement integrates semslessly with server rendered html.  For example, expand the section below to see what works:
+
+<details>
+    <summary>Sample SSR example</summary>
+
+```html
+<table itemscope=national-medal-list>
+    <caption>Medal List Summer 2024</caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Rank</th>
+            <th>NOC</th>
+            <th>Gold</th>
+            <th>Silver</th>
+            <th>Bronze</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template 
+            per-each="country-medal-count of national-medal-list"
+            per-each-map-idx-to="idx"
+            per-each-idx-start="1"
+        >
+            <tr -s=aria-rowindex>
+                <td itemprop=rank></td>
+                <td itemprop=noc></td>
+                <td itemprop=gold></td>
+                <td itemprop=silver></td>
+                <td itemprop=bronze></td>
+                <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+            </tr>
+
+        </template>
+        <tr -s=aria-rowindex itemscope=country-medal-count>
+            <td itemprop=rank>tbd 1</td>
+            <td itemprop=noc>tbd 1</td>
+            <td itemprop=gold>tbd 1</td>
+            <td itemprop=silver>tbd 1</td>
+            <td itemprop=bronze>tbd 1</td>
+            <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+        </tr>
+        <tr -s=aria-rowindex itemscope=country-medal-count>
+            <td itemprop=rank>tbd 2</td>
+            <td itemprop=noc>tbd 2</td>
+            <td itemprop=gold>tbd 2</td>
+            <td itemprop=silver>tbd 2</td>
+            <td itemprop=bronze>tbd 2</td>
+            <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+        </tr>
+        <tr -s=aria-rowindex itemscope=country-medal-count>
+            <td itemprop=rank>tbd 3</td>
+            <td itemprop=noc>tbd 3</td>
+            <td itemprop=gold>tbd 3</td>
+            <td itemprop=silver>tbd 3</td>
+            <td itemprop=bronze>tbd 3</td>
+            <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+        </tr>
+        <tr -s=aria-rowindex itemscope=country-medal-count>
+            <td itemprop=rank>tbd 4</td>
+            <td itemprop=noc>tbd 4</td>
+            <td itemprop=gold>tbd 4</td>
+            <td itemprop=silver>tbd 4</td>
+            <td itemprop=bronze>tbd 4</td>
+            <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+        </tr>
+    </tbody>
+</table>
+```
+
+</details>
+
 ## Viewing Locally
 
 Any web server that serves static files with server-side includes will do but...
