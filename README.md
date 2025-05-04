@@ -48,7 +48,7 @@ This could look as follows:
 
 *per-each* looks at the element it adorns, the tr element, and turns it into a template.  *per-each* also supports template elements, which is required for repeating multiple side-by-side elements per loop iteration.
 
-All that *per-each* does is clone the tr element multiple times, and set the attribute for each one:
+All that *per-each* does is clone the tr element multiple times, and set the attribute for each one, and it passes each list item to the "ish" property of each such tr element:
 
 ```html
 <table itemscope=national-medal-list>
@@ -70,7 +70,7 @@ Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [
 1.  Causes the instantiation of a custom element by that name....
 2.  ... which gets attached to the element the itemscope attribute adorns, with dynamic property key "ish"
 
-What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather does an Object.assign / shallow merge (?) of the passed in object into the custom element.  That is, that's what happens if the object being passed is *not* an array.
+What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather does an Object.assign / shallow merge (?) of the passed in object into the custom element.  That is, that's what happens if the object being passed in is *not* an array.
 
 In the case of getting passed in an array, the ish property setter sets the custom element's "ishList" property.  So these "scoped custom elements" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
 
