@@ -127,7 +127,8 @@ customElements.define('country-medal-count', class {
 
     /** Optional.  
         * Any elements other than the first element of the template 
-        * get passed in here via the itemref attribute get passed in here:*/
+        * get passed in here.
+        * For SSR generated content, elements get passed in via the itemref attribute references:*/
     async inScopeCallback(element){
         //binding / event handling added here
     }
@@ -236,7 +237,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 
 ## SSR
 
-Due to the heavy reliance on HTML attributes to keep tings in sync, this element enhancement integrates semslessly with server rendered html.  For example, expand the section below to see what works:
+Due to the heavy reliance on HTML attributes to keep tings in sync, this element enhancement integrates seamlessly with server rendered html.  For example, expand the section below to see what works:
 
 <details>
     <summary>Sample SSR example</summary>
