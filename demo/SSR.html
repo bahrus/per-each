@@ -17,6 +17,7 @@
         <caption>Medal List Summer 2024</caption>
         <thead>
             <tr>
+                <th></th>
                 <th>Rank</th>
                 <th>NOC</th>
                 <th>Gold</th>
@@ -41,6 +42,14 @@
                 </tr>
 
             </template>
+            <tr -s=aria-rowindex itemscope=country-medal-count>
+                <td itemprop=rank>tbd</td>
+                <td itemprop=noc>tbd</td>
+                <td itemprop=gold>tbd</td>
+                <td itemprop=silver>tbd</td>
+                <td itemprop=bronze>tbd</td>
+                <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+            </tr>
         </tbody>
     </table>
     <button onclick="addRows()">Add Rows</button>
@@ -71,3 +80,5 @@
     </script>
 </body>
 </html>
+
+<!-- TODO:  BeDefinitive creates template from first element -->
