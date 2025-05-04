@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template With Single Node</title>
+    <!-- #include virtual="/imports.html" -->
+     <script type=module>
+        import './CountryMedalCount.js';
+        import './NationalMedalList.js';
+        import '/🍑.js';
+     </script>
+</head>
+<body>
+
+    <table itemscope=national-medal-list>
+        <caption>Medal List Summer 2024</caption>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>NOC</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Bronze</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr -s=aria-rowindex itemscope=country-medal-count
+                🍑-options='{
+                    "each": "country-medal-count of national-medal-list",
+                    "mapIdxTo": "idx",
+                    "idxStart": 1
+                }'
+            >
+                <td itemprop=rank>tbd 0</td>
+                <td itemprop=noc>tbd 0</td>
+                <td itemprop=gold>tbd 0</td>
+                <td itemprop=silver>tbd 0</td>
+                <td itemprop=bronze>tbd 0</td>
+                <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+            </tr>
+
+            <tr -s=aria-rowindex itemscope=country-medal-count>
+                <td itemprop=rank>tbd 1</td>
+                <td itemprop=noc>tbd 1</td>
+                <td itemprop=gold>tbd 1</td>
+                <td itemprop=silver>tbd 1</td>
+                <td itemprop=bronze>tbd 1</td>
+                <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+            </tr>
+            <tr -s=aria-rowindex itemscope=country-medal-count>
+                <td itemprop=rank>tbd 2</td>
+                <td itemprop=noc>tbd 2</td>
+                <td itemprop=gold>tbd 2</td>
+                <td itemprop=silver>tbd 2</td>
+                <td itemprop=bronze>tbd 2</td>
+                <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+            </tr>
+            <tr -s=aria-rowindex itemscope=country-medal-count>
+                <td itemprop=rank>tbd 3</td>
+                <td itemprop=noc>tbd 3</td>
+                <td itemprop=gold>tbd 3</td>
+                <td itemprop=silver>tbd 3</td>
+                <td itemprop=bronze>tbd 3</td>
+                <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+            </tr>
+            <tr -s=aria-rowindex itemscope=country-medal-count>
+                <td itemprop=rank>tbd 4</td>
+                <td itemprop=noc>tbd 4</td>
+                <td itemprop=gold>tbd 4</td>
+                <td itemprop=silver>tbd 4</td>
+                <td itemprop=bronze>tbd 4</td>
+                <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="addRows()">Add Rows</button>
+    <button onclick="removeRows()">Remove Rows</button>
+    <script>
+        function addRows() {
+            const table = document.querySelector('table');
+            const ish = table.ish;
+
+            const ishList = [...ish.ishList];
+            ishList.push({rank: 4, noc: 'Australia', gold: 18, silver: 19, bronze: 16, total: 53});
+            ishList.push({rank: 5, noc: 'France', gold: 16, silver: 26, bronze: 22, total: 64});
+            ishList.push({rank: 6, noc: 'Netherlands', gold: 15, silver: 7, bronze: 12, total: 34});
+            table.ish.ishList = ishList;
+        }
+
+        function removeRows() {
+            const table = document.querySelector('table');
+            const ish = table.ish;
+
+            const ishList = [...ish.ishList];
+            ishList.pop();
+            ishList.pop();
+            ishList.pop();
+            table.ish.ishList = ishList;
+        }
+        
+    </script>
+</body>
+</html>
+
+<!-- TODO:  BeDefinitive creates template from first element -->
