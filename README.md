@@ -6,15 +6,15 @@
 2.  Imposes little to no requirements as far as binding syntax.
 3.  Promotes use of custom elements for encapsulating logic and binding as needed, while
 4.  Working around limitations of proper HTML decorum.
-5.  It can "resume" rendering from server-rendered HTML based on WHATWG standard microdata attributes
+5.  It can "resume" rendering from server-rendered HTML based on WHATWG standard microdata attributes (with a small enhancement proposal)
 
 ## Avoiding the framework trap
 
-On the web presentation layer, since there is no built-in web standard support for dynamically generating a loop of HTML on the client side, developers naturally need to gravitate to a library / framework for this functionality.  And that typically involves abiding by some syntax for all binding.  And like that, the developer gets sucked into a framework with no possibility of escape.
+On the web presentation layer, since there is no built-in web standard support for dynamically generating a loop of HTML on the client side, developers naturally flock to a library / framework for this functionality.  And that typically involves abiding by some proprietary syntax for all binding.  And like that, the developer gets sucked into a framework with no possibility of escape.
 
-Custom Elements have made great inroads in avoiding the framework trap.  However, they fall short when it comes to generating the light children, without a little nudge.
+Custom Elements have made great inroads in avoiding the framework trap.  Each component can adopt any binding syntax it wants within the Shadow DOM realm.   However, they fall short when it comes to generating the light children, without a little nudge.
 
-This enhancement, instead, builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that gives custom elements that nudge -- the ability to be attached automatically to an element based on the itemscope attribute.
+This enhancement provides that nudge.  It builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that gives custom elements a new optional role -- the ability to be attached automatically to an element based on the itemscope attribute, so it can manage the light children of the adorned element.
 
 ## Example 1 -- No template
 
@@ -51,7 +51,7 @@ This could look as follows:
 All that *per-each* does is clone the tr element multiple times, and set the attribute for each one:
 
 ```html
-<table itemscope=national-meal-list>
+<table itemscope=national-medal-list>
     <thead>
         ...
     </thead>
