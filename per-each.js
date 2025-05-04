@@ -144,6 +144,9 @@ class PerEach extends BE {
                 const existingIshNode = existingIshNodes[absIdx];
                 if(existingIshNode !== undefined){
                     existingIshNode.ish = item;
+                    if(mapIdxTo !== undefined){
+                        existingIshNode.ish[mapIdxTo] = idx++;
+                    }
                     lastExisting = existingIshNode;
                     absIdx++;
                     continue;
