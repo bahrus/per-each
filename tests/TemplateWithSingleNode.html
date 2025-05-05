@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template With Single Node</title>
+    <!-- #include virtual="/imports.html" -->
+     <script type=module>
+        import '../demo/CountryMedalCount.js';
+        import '../demo/NationalMedalList.js';
+        import '/emc.js';
+     </script>
+</head>
+<body>
+
+    <table itemscope=national-medal-list>
+        <caption>Medal List Summer 2024</caption>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>NOC</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Bronze</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <template 
+                per-each="country-medal-count of national-medal-list"
+                per-each-map-idx-to="idx"
+                per-each-idx-start="1"
+            >
+                <tr -s=aria-rowindex>
+                    <td itemprop=rank></td>
+                    <td itemprop=noc></td>
+                    <td itemprop=gold></td>
+                    <td itemprop=silver></td>
+                    <td itemprop=bronze></td>
+                    <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+                </tr>
+
+            </template>
+        </tbody>
+    </table>
+    <button id=button onclick="addRows()">Add Rows</button>
+    <button onclick="removeRows()">Remove Rows</button>
+    <div id=target></div>
+    <script>
+        function addRows() {
+            const table = document.querySelector('table');
+            const ish = table.ish;
+
+            const ishList = [...ish.ishList];
+            ishList.push({rank: 4, noc: 'Australia', gold: 18, silver: 19, bronze: 16, total: 53});
+            ishList.push({rank: 5, noc: 'France', gold: 16, silver: 26, bronze: 22, total: 64});
+            ishList.push({rank: 6, noc: 'Netherlands', gold: 15, silver: 7, bronze: 12, total: 34});
+            table.ish.ishList = ishList;
+        }
+
+        function removeRows() {
+            const table = document.querySelector('table');
+            const ish = table.ish;
+
+            const ishList = [...ish.ishList];
+            ishList.pop();
+            ishList.pop();
+            ishList.pop();
+            table.ish.ishList = ishList;
+        }
+
+        function runTest(){
+            button.click();
+            setTimeout(() => {
+                const trs = document.querySelectorAll('tr');
+                if(trs.length === 7){
+                    target.setAttribute('mark', 'good');
+                }
+            }, 100);
+        }
+        setTimeout(() => {
+            runTest();
+        }, 1000);
+    </script>
+</body>
+</html>

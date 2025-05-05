@@ -121,7 +121,10 @@ customElements.define('national-medal-list', class {
 customElements.define('country-medal-count', class {
 
     /** Optional.  First element of cloned template gets passed in here **/
-    async attachedCallback(element, {csr: true}){
+    /** For server rendered HTML, the element with itemscope attribute = country-medal-count
+     * in this case gets passed in
+     */
+    async attachedCallback(element, {csr: true/false}){
         //binding / event handling added here if needed 
     }
 

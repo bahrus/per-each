@@ -4,17 +4,18 @@
   "description": "",
   "main": "per-each.js",
   "module": "per-each.js",
+  "type": "module",
   "scripts": {
     "test": "playwright test",
     "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
-    "safari": "npx playwright wk http://localhost:3030",
+    "safari": "npx playwright wk http://localhost:8000",
     "update": "ncu -u && npm install"
   },
   "dependencies": {
     "be-enhanced": "0.0.178",
     "be-hive": "0.0.259",
     "mount-observer": "0.0.58",
-    "trans-render": "0.0.900"
+    "trans-render": "0.0.901"
   },
   "devDependencies": {
     "@playwright/test": "1.52.0",
