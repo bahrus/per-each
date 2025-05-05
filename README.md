@@ -1,5 +1,11 @@
 # per-each (🍑)
 
+
+[![Playwright Tests](https://github.com/bahrus/per-each/actions/workflows/CI.yml/badge.svg)](https://github.com/bahrus/per-each/actions/workflows/CI.yml)
+[![NPM version](https://badge.fury.io/js/per-each.png)](http://badge.fury.io/js/per-each)
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/per-each?style=for-the-badge)](https://bundlephobia.com/result?p=per-each)
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/per-each?compression=gzip">
+
 *per-each* is a custom element enhancement, based on the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [behiviors](https://github.com/bahrus/be-hive), that 
 
 1.  Provides for looping support, 
