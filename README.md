@@ -80,7 +80,7 @@ Implementing these conventions takes a certain amount of boilerplate effort, sho
 
 customElements.define('national-medal-list', class {
     /**
-        * Typically the list of data will be passed in via the ish and/or ish.ishList property,
+        * Typically the list of data will be passed in via the oElement.ish and/or oElement.ish.ishList property,
         * or retrieved internally via fetch, for example
     */
     #ishList = [
@@ -113,8 +113,8 @@ customElements.define('national-medal-list', class {
     get totalMedalCount(){
         return this.#totalMedalCount;
     }
-    attachedCallback(enhancedEl){
-        //do any rendering that is desired on the enhancedEl
+    attachedCallback(el){
+        //do any rendering that is desired on the element
     }
 });
 
