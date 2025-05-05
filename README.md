@@ -246,7 +246,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 
 ## SSR
 
-Due to the heavy reliance on HTML attributes to keep tings in sync, this element enhancement integrates seamlessly with server rendered html.  For example, expand the section below to see what works:
+Due to the heavy reliance on HTML attributes to keep things in sync, this element enhancement integrates seamlessly with server rendered html.  For example, expand the section below to see what works:
 
 <details>
     <summary>Sample SSR example</summary>
