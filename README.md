@@ -1,4 +1,4 @@
-# per-each (🍑) [WIP]
+# per-each (🍑)
 
 *per-each* is a custom element enhancement, based on the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [behiviors](https://github.com/bahrus/be-hive), that 
 
@@ -90,11 +90,11 @@ customElements.define('national-medal-list', class {
         ...
     ];
 
-    /** optional */
+    /** required if hosting a list */
     get ishList(){
         return this.#ishList;
     }
-    /** required */
+    /** required if hosting a list */
     set ishList(nv){
         //we could filter the list if applicable first
         this.#ishList = nv;
