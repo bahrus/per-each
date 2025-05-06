@@ -36,11 +36,12 @@ This could look as follows:
             <th>NOC</th>
             <th>Gold</th>
             <th>Silver</th>
+            <th>Bronze</th>
             <th>Total</th>
     </thead>
     <tbody>
         <tr 
-            per-each="country-medal-count of national-medal-list" -s=aria-rowindex>
+            per-each="country-medal-count of national-medal-list">
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -62,12 +63,13 @@ All that *per-each* does is clone the tr element multiple times, and set the att
         ...
     </thead>
     <tbody>
-    <tr itemscope=country-medal-count>
-        ...
-    </tr>
-    <tr itemscope=country-medal-count>
-        ...
-    </tr>
+        <tr itemscope=country-medal-count>
+            ...
+        </tr>
+        <tr itemscope=country-medal-count>
+            ...
+        </tr>
+    </tbody>
 </table>
 ```
 
@@ -190,8 +192,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
         <tr 
             per-each="country-medal-count of national-medal-list" 
             per-each-map-idx-to="myIndex"
-            per-each-idx-start="1" 
-            -s=aria-rowindex>
+            per-each-idx-start="1">
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -271,7 +272,7 @@ Due to the heavy reliance on HTML attributes to keep tings in sync, this element
             per-each-map-idx-to="idx"
             per-each-idx-start="1"
         >
-            <tr -s=aria-rowindex>
+            <tr>
                 <td itemprop=rank></td>
                 <td itemprop=noc></td>
                 <td itemprop=gold></td>
@@ -281,7 +282,7 @@ Due to the heavy reliance on HTML attributes to keep tings in sync, this element
             </tr>
 
         </template>
-        <tr -s=aria-rowindex itemscope=country-medal-count>
+        <tr itemscope=country-medal-count>
             <td itemprop=rank>tbd 1</td>
             <td itemprop=noc>tbd 1</td>
             <td itemprop=gold>tbd 1</td>
@@ -289,7 +290,7 @@ Due to the heavy reliance on HTML attributes to keep tings in sync, this element
             <td itemprop=bronze>tbd 1</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr -s=aria-rowindex itemscope=country-medal-count>
+        <tr itemscope=country-medal-count>
             <td itemprop=rank>tbd 2</td>
             <td itemprop=noc>tbd 2</td>
             <td itemprop=gold>tbd 2</td>
@@ -297,7 +298,7 @@ Due to the heavy reliance on HTML attributes to keep tings in sync, this element
             <td itemprop=bronze>tbd 2</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr -s=aria-rowindex itemscope=country-medal-count>
+        <tr itemscope=country-medal-count>
             <td itemprop=rank>tbd 3</td>
             <td itemprop=noc>tbd 3</td>
             <td itemprop=gold>tbd 3</td>
@@ -305,7 +306,7 @@ Due to the heavy reliance on HTML attributes to keep tings in sync, this element
             <td itemprop=bronze>tbd 3</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr -s=aria-rowindex itemscope=country-medal-count>
+        <tr  itemscope=country-medal-count>
             <td itemprop=rank>tbd 4</td>
             <td itemprop=noc>tbd 4</td>
             <td itemprop=gold>tbd 4</td>
@@ -318,6 +319,35 @@ Due to the heavy reliance on HTML attributes to keep tings in sync, this element
 ```
 
 </details>
+
+## Inference [TODO]
+
+If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync if refactoring names:
+
+```html
+<table itemscope=national-medal-list>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>NOC</th>
+            <th>Gold</th>
+            <th>Silver</th>
+            <th>Bronze</th>
+            <th>Total</th>
+    </thead>
+    <tbody>
+        <tr 
+            per-each="country-medal-count" >
+            <td itemprop=rank></td>
+            <td itemprop=noc></td>
+            <td itemprop=gold></td>
+            <td itemprop=silver></td>
+            <td itemprop=bronze></td>
+            <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+        </tr>
+    </tbody>
+</table>
+```
 
 ## Viewing Locally
 
