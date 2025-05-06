@@ -10,13 +10,7 @@ export class CountryMedalCount extends Scope {
      */
     static config = {
         propInfo:{
-            rank: {},
-            noc: {},
-            gold: {},
-            silver: {},
-            bronze: {},
-            total: {},
-            idx: {},
+            rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
         },
         xform: {
             ':root': [

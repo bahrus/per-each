@@ -320,7 +320,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
 
 </details>
 
-## Inference [TODO]
+## Inference
 
 If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync if refactoring names:
 

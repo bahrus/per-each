@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infer No Template</title>
+    <!-- #include virtual="/imports.html" -->
+     <script type=module>
+        import './CountryMedalCount.js';
+        import './NationalMedalList.js';
+        import '/🍑.js';
+     </script>
+     <script nomodule id="country-medal-count">
+    ({
+        propInfo:{
+            rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
+        },
+        xform: {
+            ':root': [
+                {o: 'idx', s: 'ariaRowIndex'},
+            ],
+            '| rank': 0, '| noc': 0, '| gold': 0, '| silver': 0, '| bronze': 0, '| total': 0,
+        },
+        inScopeXForms: {
+            '.totals': {
+                '| total': 0
+            }
+        }
+    })
+     </script>
+</head>
+<body>
+
+    <table itemscope=national-medal-list>
+        <caption>Medal List Summer 2024</caption>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>NOC</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <script href="#country-medal-count" 🍑></script>
+                <td itemprop=rank></td>
+                <td itemprop=noc></td>
+                <td itemprop=gold></td>
+                <td itemprop=silver></td>
+                <td itemprop=bronze></td>
+                <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+            </tr>
+            </template>
+        </tbody>
+    </table>
+
+
+</body>
+</html>
