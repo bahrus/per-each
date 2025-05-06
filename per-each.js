@@ -52,9 +52,14 @@ class PerEach extends BE {
      * @returns 
      */
     parse(self){
-        const { each} = self;
+        const { each, enhancedElement} = self;
         const split = each.split(' of ').map(s => s.trim());
-        const [itemProp, listProp] = split;
+        let [itemProp, listProp] = split;
+        if(listProp === undefined){
+            const inferredList = enhancedElement.closest('[itemscope*="-"]');
+            if(inferredList === null) throw 404;
+            listProp = inferredList.getAttribute('itemscope') || '';
+        }
         return /** @type {PAP} */({
             itemProp, listProp
         });

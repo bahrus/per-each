@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Single Node No Template</title>
+    <title>Infer No Template</title>
     <!-- #include virtual="/imports.html" -->
      <script type=module>
         import './CountryMedalCount.js';
         import './NationalMedalList.js';
-        import '/emc.js';
+        import '/🍑.js';
      </script>
 </head>
 <body>
@@ -17,7 +17,6 @@
         <caption>Medal List Summer 2024</caption>
         <thead>
             <tr>
-                <th></th>
                 <th>Rank</th>
                 <th>NOC</th>
                 <th>Gold</th>
@@ -28,13 +27,8 @@
         <tbody>
 
             <tr 
-                per-each="country-medal-count of national-medal-list"
-                per-each-map-idx-to=idx
-                per-each-idx-start=1
-                per-each-idle-timeout=10000
-                
+                per-each="country-medal-count"
             >
-                    <td><plus-minus></plus-minus></td>
                     <td itemprop=rank></td>
                     <td itemprop=noc></td>
                     <td itemprop=gold></td>
