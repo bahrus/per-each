@@ -28,9 +28,45 @@
         }
     })
      </script>
+
+     <script nomodule id="national-medal-list">
+        ({
+            propInfo: {
+                ishList: {
+                    def: [
+                        {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
+                        {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
+                        {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
+                    ]
+                },
+                totalMedalCount: {
+                    def: 0,
+                },
+            },
+            compacts:{
+                when_ishList_changes_dispatch: 'ishListChanged'
+            },
+            actions:{
+                calcTotal: {
+                    ifAllOf: ['ishList'],
+                    do: (self) => {
+                        const {ishList} = self;
+                        return {
+                            totalMedalCount: ishList.reduce((acc, item) => acc + item.total, 0)
+                        }
+                        
+                    }
+                }
+            },
+            xform:{
+                '-o totalMedalCount': 0
+            }
+        })
+    </script>
 </head>
 <body>
 
+    
     <table itemscope=national-medal-list>
         <caption>Medal List Summer 2024</caption>
         <thead>
