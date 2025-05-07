@@ -42,13 +42,8 @@ export class NationalMedalList extends Scope {
      */
     calcTotal(self){
         const {ishList} = self;
-        //const totalMedalCount = ishList.reduce((accumulator, currentValue) => accumulator + currentValue.total)
-        let totalMedalCount = 0;
-        for(const item of ishList){
-            totalMedalCount += item.total;
-        }
         return ({
-            totalMedalCount
+            totalMedalCount: ishList.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0)
         })
     }
 }
