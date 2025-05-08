@@ -6,7 +6,6 @@
     <title>Infer No Template</title>
     <!-- #include virtual="/imports.html" -->
      <script type=module>
-        //import './NationalMedalList.js';
         import '/🍑.js';
      </script>
      <script nomodule id=national-medal-list>
@@ -31,9 +30,10 @@
             '-o totalMedalCount': 0
         }
     })
+
      </script>
      
-     <script nomodule id="country-medal-count">
+     <script nomodule id="country-medal-count" href=#national-medal-list>
     ({
         propInfo:{
             rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},

@@ -82,11 +82,11 @@ class PerEach extends BE {
         const isScriptEl = enhancedElement instanceof HTMLScriptElement;
         if(isScriptEl && enhancedElement.hasAttribute('href')) {
             itemTemplate = itemTemplate.previousElementSibling;
-            const {ScopeScript, ScopeScriptImpl} = await import('trans-render/froop/ScopeScript.js');
+            const {ScopeScript} = await import('trans-render/froop/ScopeScript.js');
             await ScopeScript(enhancedElement);
-            try{
-                await ScopeScriptImpl(enhancedElement, listProp);
-            }catch(e){}
+            // try{
+            //     await ScopeScriptImpl(enhancedElement, listProp);
+            // }catch(e){}
         }
         /**
          * @type {EventTarget}
@@ -113,10 +113,10 @@ class PerEach extends BE {
                 itemTemplate2.content.firstElementChild?.removeAttribute(`${base}${app}`);
             }
             
-            
-            enhancedElement.innerHTML = '';
-            if('hidden' in enhancedElement){
-                enhancedElement.hidden = true;
+            let elementToHide = isScriptEl ? itemTemplate : enhancedElement;
+            elementToHide.innerHTML = '';
+            if('hidden' in elementToHide){
+                elementToHide.hidden = true;
             }
             itemTemplate = itemTemplate2;
         }
