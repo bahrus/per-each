@@ -4,6 +4,7 @@ import { BE } from 'be-enhanced/BE.js';
 import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
 import { EventHandler } from 'trans-render/EventHandler.js';
 import { assignGingerly } from 'trans-render/lib/assignGingerly.js';
+import { Scope } from 'trans-render/froop/Scope.js';
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types' */
 /** @import {Actions, PAP, AllProps, AP, BAP} from './ts-refs/per-each/types' */;
 /** @import {HasIsh} from './ts-refs/trans-render/dss/types' */
@@ -60,6 +61,9 @@ class PerEach extends BE {
             if(inferredList === null) throw 404;
             listProp = inferredList.getAttribute('itemscope') || '';
         }
+        if(!itemProp && enhancedElement instanceof HTMLScriptElement && enhancedElement.hasAttribute('href')){
+            itemProp = enhancedElement.getAttribute('href')?.substring(1);
+        }
         return /** @type {PAP} */({
             itemProp, listProp
         });
@@ -85,13 +89,19 @@ class PerEach extends BE {
             ish = closest.ish;
         }
         let itemTemplate = enhancedElement;
+        const isScriptEl = enhancedElement instanceof HTMLScriptElement;
+        if(isScriptEl && enhancedElement.hasAttribute('href')) {
+            itemTemplate = itemTemplate.previousElementSibling;
+            const {ScopeScript} = await import('trans-render/froop/ScopeScript.js');
+            await ScopeScript(enhancedElement);
+        }
         if(!(itemTemplate instanceof HTMLTemplateElement)){
             /**
              * @type {HTMLTemplateElement}
              */
             const itemTemplate2 = document.createElement('template');
             enhancedElement.removeAttribute('itemscope');
-            itemTemplate2.innerHTML = enhancedElement.outerHTML;
+            itemTemplate2.innerHTML = itemTemplate.outerHTML;
             const {base} = emc;
             const {branches} = emc;
             for(const branch of branches){
