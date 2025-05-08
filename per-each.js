@@ -78,6 +78,16 @@ class PerEach extends BE {
         const { itemProp, listProp, enhancedElement, emc } = self;
         const closest = enhancedElement.closest(`[itemscope="${listProp}"`);
         if(closest === null) throw 404;
+        let itemTemplate = enhancedElement;
+        const isScriptEl = enhancedElement instanceof HTMLScriptElement;
+        if(isScriptEl && enhancedElement.hasAttribute('href')) {
+            itemTemplate = itemTemplate.previousElementSibling;
+            const {ScopeScript, ScopeScriptImpl} = await import('trans-render/froop/ScopeScript.js');
+            await ScopeScript(enhancedElement);
+            try{
+                await ScopeScriptImpl(enhancedElement, listProp);
+            }catch(e){}
+        }
         /**
          * @type {EventTarget}
          */
@@ -88,13 +98,7 @@ class PerEach extends BE {
         }else{
             ish = closest.ish;
         }
-        let itemTemplate = enhancedElement;
-        const isScriptEl = enhancedElement instanceof HTMLScriptElement;
-        if(isScriptEl && enhancedElement.hasAttribute('href')) {
-            itemTemplate = itemTemplate.previousElementSibling;
-            const {ScopeScript} = await import('trans-render/froop/ScopeScript.js');
-            await ScopeScript(enhancedElement);
-        }
+
         if(!(itemTemplate instanceof HTMLTemplateElement)){
             /**
              * @type {HTMLTemplateElement}
