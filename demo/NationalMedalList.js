@@ -25,7 +25,7 @@ export class NationalMedalList extends Scope {
             },
         },
         compacts:{
-            //when_ishList_changes_call_calcTotal: 0,
+            when_ishList_changes_call_calcTotal: 0,
             when_ishList_changes_dispatch: 'ishListChanged'
         },
         xform:{
