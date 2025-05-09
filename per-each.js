@@ -114,10 +114,15 @@ class PerEach extends BE {
             }
             
             let elementToHide = isScriptEl ? itemTemplate : enhancedElement;
-            elementToHide.innerHTML = '';
-            if('hidden' in elementToHide){
-                elementToHide.hidden = true;
+            if(isScriptEl){
+                elementToHide.remove();
+            }else{
+                elementToHide.innerHTML = '';
+                if('hidden' in elementToHide){
+                    elementToHide.hidden = true;
+                }
             }
+
             itemTemplate = itemTemplate2;
         }
         return /** @type {PAP} */({
