@@ -349,6 +349,95 @@ If the name of the itemscope list isn't provided, it is inferred.  This can redu
 </table>
 ```
 
+## Casual Fridays
+
+The examples so far allow for any custom element library that abides by the minimal protocol mentioned above.  
+
+But *per-each* also provides some extra support to make the developer extra productive.
+
+Expand the markup below to see what that looks like
+
+<details>
+    <summary>Boilerplate busting iterating</summary>
+
+```html
+<script nomodule id=national-medal-list>
+({
+    propInfo: {
+        ishList: {
+            def: [
+                {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
+                {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
+                {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
+            ]
+        },
+        totalMedalCount: {
+            def: 0,
+        },
+    },
+    compacts:{
+        when_ishList_changes_dispatch: 'ishListChanged'
+    },
+    actions:{
+        calcTotal: {
+            do: ({ishList}) => ({
+                totalMedalCount: ishList.reduce((acc, item) => acc + item.total, 0)
+            }),
+            ifAllOf: ['ishList']
+        }
+    },
+    xform:{
+        '-o totalMedalCount': 0
+    }
+})
+</script>
+        
+<script nomodule id="country-medal-count" href=#national-medal-list>
+({
+    propInfo:{
+        rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
+    },
+    xform: {
+        ':root': [
+            {o: 'idx', s: 'ariaRowIndex'},
+        ],
+        '| rank': 0, '| noc': 0, '| gold': 0, '| silver': 0, '| bronze': 0, '| total': 0,
+    },
+    inScopeXForms: {
+        '.totals': {
+            '| total': 0
+        }
+    }
+})
+</script>
+
+<table itemscope=national-medal-list>
+    <caption>Medal List Summer 2024</caption>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>NOC</th>
+            <th>Gold</th>
+            <th>Silver</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td itemprop=rank></td>
+            <td itemprop=noc></td>
+            <td itemprop=gold></td>
+            <td itemprop=silver></td>
+            <td itemprop=bronze></td>
+            <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+        </tr>
+        <script href="#country-medal-count" 🍑></script>
+    </tbody>
+</table>
+```
+
+</details>
+
 ## Viewing Locally
 
 Any web server that serves static files with server-side includes will do but...

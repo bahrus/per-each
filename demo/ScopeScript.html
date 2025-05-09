@@ -8,7 +8,11 @@
      <script type=module>
         import '/🍑.js';
      </script>
-     <script nomodule id=national-medal-list>
+
+</head>
+<body>
+
+    <script nomodule id=national-medal-list>
     ({
         propInfo: {
             ishList: {
@@ -23,14 +27,10 @@
             },
         },
         compacts:{
-            //when_ishList_changes_call_calcTotal: 0,
             when_ishList_changes_dispatch: 'ishListChanged'
         },
         actions:{
             calcTotal: {
-                //when_ishList_changes_call_calcTotal: 0,
-                //when_ishList_changes_dispatch: 'ishListChanged'
-                //ishListChanged: 0,
                 do: ({ishList}) => ({
                     totalMedalCount: ishList.reduce((acc, item) => acc + item.total, 0)
                 }),
@@ -41,10 +41,9 @@
             '-o totalMedalCount': 0
         }
     })
-
-     </script>
-     
-     <script nomodule id="country-medal-count" href=#national-medal-list>
+    </script>
+         
+    <script nomodule id="country-medal-count" href=#national-medal-list>
     ({
         propInfo:{
             rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
@@ -61,11 +60,8 @@
             }
         }
     })
-     </script>
-
-</head>
-<body>
-
+    </script>
+    
     <table itemscope=national-medal-list>
         <caption>Medal List Summer 2024</caption>
         <thead>
