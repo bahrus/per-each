@@ -380,10 +380,11 @@ Expand the markup below to see what that looks like
     },
     actions:{
         calcTotal: {
+            ifAllOf: ['ishList'],
             do: ({ishList}) => ({
                 totalMedalCount: ishList.reduce((acc, item) => acc + item.total, 0)
             }),
-            ifAllOf: ['ishList']
+            
         }
     },
     xform:{
