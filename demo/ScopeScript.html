@@ -26,6 +26,17 @@
             //when_ishList_changes_call_calcTotal: 0,
             when_ishList_changes_dispatch: 'ishListChanged'
         },
+        actions:{
+            calcTotal: {
+                //when_ishList_changes_call_calcTotal: 0,
+                //when_ishList_changes_dispatch: 'ishListChanged'
+                //ishListChanged: 0,
+                do: ({ishList}) => ({
+                    totalMedalCount: ishList.reduce((acc, item) => acc + item.total, 0)
+                }),
+                ifAllOf: ['ishList']
+            }
+        },
         xform:{
             '-o totalMedalCount': 0
         }
