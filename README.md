@@ -8,7 +8,7 @@
 
 *per-each* is a custom element enhancement, based on the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [behiviors](https://github.com/bahrus/be-hive), that 
 
-1.  Provides for looping support, 
+1.  Provides for looping support, but
 2.  Imposes little to no requirements as far as binding syntax.
 3.  Promotes use of custom elements for encapsulating logic and binding as needed, while
 4.  Working around limitations of proper HTML decorum.
