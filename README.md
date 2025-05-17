@@ -10,17 +10,17 @@
 
 1.  Provides for looping support, but
 2.  Imposes little to no requirements as far as binding syntax.
-3.  Promotes use of custom elements for encapsulating logic and binding as needed, while
+3.  Promotes use of  light-weight classes or function prototypes for encapsulating logic and binding as needed (that is part of a standards proposal), while
 4.  Working around limitations of proper HTML decorum.
 5.  It can "resume" rendering from server-rendered HTML based on WHATWG standard microdata attributes (with a small enhancement proposal)
 
 ## Avoiding the framework trap
 
-On the web presentation layer, since there is no built-in web standard support for dynamically generating a loop of HTML on the client side, developers naturally flock to a library / framework for this functionality.  And that typically involves abiding by some proprietary syntax for all binding.  And like that, the developer gets sucked into a framework with no possibility of escape.
+On the web presentation layer, since there is no built-in web standard support for dynamically generating a loop of HTML on the client side, developers naturally flock to a library / framework for this functionality.  And that typically involves abiding by some proprietary syntax for all binding.  And *poof*, the developer gets sucked into a framework with no possibility of escape.
 
 Custom Elements have made great inroads in avoiding the framework trap.  Each component can adopt any binding syntax it wants within the Shadow DOM realm.   However, they fall short when it comes to generating the light children, without a little nudge.
 
-This enhancement provides that nudge.  It builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that gives custom elements a new optional role -- the ability to be attached automatically to an element based on the itemscope attribute, so it can manage the light children of the adorned element.
+This enhancement provides that nudge.  It builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that provides a common mechanism for binding a view model to the UI -- the ability for a class instance to be attached automatically to an element based on the itemscope attribute, so it can manage the light children of the adorned element.
 
 ## Example 1 -- No template
 
@@ -29,28 +29,31 @@ Example:  Suppose we want to display the medal count and details of the last Oly
 This could look as follows:
 
 ```html
-<table itemscope=national-medal-list>
-    <thead>
-        <tr>
-            <th>Rank</th>
-            <th>NOC</th>
-            <th>Gold</th>
-            <th>Silver</th>
-            <th>Bronze</th>
-            <th>Total</th>
-    </thead>
-    <tbody>
-        <tr 
-            per-each="country-medal-count of national-medal-list">
-            <td itemprop=rank></td>
-            <td itemprop=noc></td>
-            <td itemprop=gold></td>
-            <td itemprop=silver></td>
-            <td itemprop=bronze></td>
-            <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
-        </tr>
-    </tbody>
-</table>
+<body>
+    ...
+    <table itemscope=national-medal-list>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>NOC</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Bronze</th>
+                <th>Total</th>
+        </thead>
+        <tbody>
+            <tr 
+                per-each="country-medal-count of national-medal-list">
+                <td itemprop=rank></td>
+                <td itemprop=noc></td>
+                <td itemprop=gold></td>
+                <td itemprop=silver></td>
+                <td itemprop=bronze></td>
+                <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
 ```
 
 *per-each* looks at the element it adorns, the tr element, and turns it into a template.  *per-each* also supports template elements, which is required for repeating multiple side-by-side elements per loop iteration.
@@ -75,18 +78,19 @@ All that *per-each* does is clone the tr element multiple times, and set the att
 
 Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [*mount-observer*](https://github.com/bahrus/mount-observer), which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), each such  itemscope attribute:
 
-1.  Causes the instantiation of a custom element by that name....
+1.  Causes the instantiation of a class or function prototype registered by that name....
 2.  ... which gets attached to the element the itemscope attribute adorns, with dynamic property key "ish"
 
-What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish custom element, but rather does an Object.assign / shallow merge (?) of the passed in object into the custom element.  That is, that's what happens if the object being passed in is *not* an array.
+What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish class instance, but rather does an Object.assign / shallow merge (?) of the passed in object into the class instance.  That is, that's what happens if the object being passed in is *not* an array.
 
-In the case of getting passed in an array, the ish property setter sets the custom element's "ishList" property.  So these "scoped custom elements" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
+In the case of getting passed in an array, the ish property setter sets the class instances's "ishList" property.  So these "scoped class instances" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
 
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such custom elements trivial:
 
 ```JavaScript
+import {regIsh} from 'mount-observer/refid/regIsh.js';
 
-customElements.define('national-medal-list', class {
+regIsh(document.body, 'national-medal-list', class {
     /**
         * Typically the list of data will be passed in via the oElement.ish and/or oElement.ish.ishList property,
         * or retrieved internally via fetch, for example
@@ -121,18 +125,19 @@ customElements.define('national-medal-list', class {
     get totalMedalCount(){
         return this.#totalMedalCount;
     }
-    attachedCallback(el){
+    '<mount>'(self, el){
         //do any rendering that is desired on the element
     }
 });
 
-customElements.define('country-medal-count', class {
+
+regIsh(document.body, 'country-medal-count', class {
 
     /** Optional.  First element of cloned template gets passed in here **/
     /** For server rendered HTML, the element with itemscope attribute = country-medal-count
      * in this case gets passed in
      */
-    async attachedCallback(element, {csr: true/false}){
+    async '<mount>'(self, element, {csr: true/false}){
         //binding / event handling added here if needed 
     }
 
@@ -140,7 +145,7 @@ customElements.define('country-medal-count', class {
         * Any elements other than the first element of the template 
         * get passed in here.
         * For SSR generated content, elements get passed in via the itemref attribute references:*/
-    async inScopeCallback(element){
+    async '<inScope>'(self, element){
         //binding / event handling added here
     }
 
@@ -153,17 +158,17 @@ customElements.define('country-medal-count', class {
 The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country-medal-count* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
 
 ```JavaScript
-interface IshFace{
+interface Ishcycle{
     /** optional */
-    attachedCallback?(el: Element, {csr?: boolean /* TODO */}): Promise<void>;
+    '<mount>'?(el: Element, {csr?: boolean /* TODO */}): Promise<void>;
     /** optional */
-    inScopeCallback?(el: Element): Promise<void>;
+    '<inScope>'?(el: Element): Promise<void>;
 }
 ```
 ... in the case of each iterating item, and
 
 ```JavaScript
-interface IshListFace extends IshFace{
+interface IshycleList extends Ishcycle{
     ishList?: any[];
 }
 ```
