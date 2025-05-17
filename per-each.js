@@ -57,7 +57,7 @@ class PerEach extends BE {
         const split = each.split(' of ').map(s => s.trim());
         let [itemProp, listProp] = split;
         if(listProp === undefined){
-            const inferredList = enhancedElement.closest('[itemscope*="-"]');
+            const inferredList = enhancedElement.closest('[itemscope]:not([itemscope=""])');
             if(inferredList === null) throw 404;
             listProp = inferredList.getAttribute('itemscope') || '';
         }
@@ -221,7 +221,7 @@ class PerEach extends BE {
                 }
                 firstElementChild.setAttribute('itemref', itemref.trim());
             }
-            await bindish(clone, {
+            await bindish(clone, enhancedElement, {
                 assigner: assignGingerly,
                 csr: true,
             }); //TODO assign gingerly

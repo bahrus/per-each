@@ -3,6 +3,7 @@
 /** @import {IshConfig } from '../ts-refs/trans-render/froop/types' */
 
 import {Scope} from 'trans-render/froop/Scope.js';
+import {regIsh} from 'mount-observer/refid/regIsh.js';
 
 /**
  * @implements {NationalMedalListActions}
@@ -48,4 +49,4 @@ export class NationalMedalList extends Scope {
 }
 
 NationalMedalList.bootUp();
-customElements.define('national-medal-list', NationalMedalList);
+regIsh(document, 'national-medal-list', NationalMedalList);

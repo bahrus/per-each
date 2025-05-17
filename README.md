@@ -205,10 +205,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
             <td itemprop=bronze></td>
             <td itemprop=total><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
         </tr>
-        <tr>
-        </tr>
-        <tr>
-        </tr>
+        
     </tbody>
 </table>
 ```
