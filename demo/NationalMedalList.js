@@ -49,4 +49,4 @@ export class NationalMedalList extends Scope {
 }
 
 NationalMedalList.bootUp();
-regIsh(document, 'national-medal-list', NationalMedalList);
+regIsh(document.body, 'national-medal-list', NationalMedalList);
