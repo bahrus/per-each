@@ -87,14 +87,14 @@ What makes the "ish" property a bit interesting as a property, is that the sette
 
 In the case of getting passed in an array, the ish property setter sets the class instances's "ishList" property.  So these "scoped class instances" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
 
-Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such custom elements trivial:
+Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such cookie cutter classes or function prototypes trivial:
 
 ```JavaScript
 import {regIsh} from 'mount-observer/refid/regIsh.js';
 
 regIsh(document.body, 'worldRankingList', class {
     /**
-        * Typically the list of data will be passed in via the oElement.ish and/or oElement.ish.ishList property,
+        * Typically the list of data will be passed in via the oElement.ish property,
         * or retrieved internally via fetch, for example
     */
     #ishList = [
@@ -114,8 +114,7 @@ regIsh(document.body, 'worldRankingList', class {
         this.#ishList = nv;
         //Totally optional
         this.#calculateTotal();
-        // required by per-each
-        this.dispatchEvent(new Event('ishListChanged'));
+       
     }
 
     /** just an example, entirely optional */
