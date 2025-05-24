@@ -127,7 +127,7 @@ regIsh(document.body, 'worldRankingList', class {
         return this.#totalMedalCount;
     }
     '<mount>'(self, el){
-        //do any rendering that is desired on the element
+        //do any rendering / event handling  that is desired on the element
     }
 });
 
@@ -144,7 +144,7 @@ regIsh(document.body, 'country', class {
 
     /** Optional.  
         * Any elements other than the first element of the template 
-        * get passed in here.
+        * gets passed in here.
         * For SSR generated content, elements get passed in via the itemref attribute references:*/
     async '<inScope>'(self, element){
         //binding / event handling added here
@@ -156,7 +156,7 @@ regIsh(document.body, 'country', class {
 
 ```
 
-The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
+The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
 
 ```JavaScript
 interface Ishcycle{
@@ -174,7 +174,7 @@ interface IshycleList extends Ishcycle{
 }
 ```
 
-... that emits event "ishListChanged" when a new list is to be applied, in the case of the DOM element that holds, and manipulates, and possibly retrieves the list.
+... in the case of the DOM element that holds, and manipulates, and possibly retrieves the list from which the *per-each* looping derives.
 
 ## Libraries that help with developer ergonomics
 
