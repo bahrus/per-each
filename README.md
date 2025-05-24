@@ -56,7 +56,7 @@ This could look as follows:
 </body>
 ```
 
-*per-each* looks at the element it adorns, the tr element, and turns it into a template.  *per-each* also supports template elements, which is required for repeating multiple side-by-side elements per loop iteration.
+*per-each* looks at the element it adorns, the tr element, and turns it into a template.  *per-each* also supports enhancing template elements, which is required for repeating multiple side-by-side elements per loop iteration.
 
 All that *per-each* does is clone the tr element multiple times, and set the attribute for each one, and it passes each list item to the "ish" property of each such tr element:
 
@@ -104,11 +104,13 @@ regIsh(document.body, 'worldRankingList', class {
         ...
     ];
 
-    /** optional, relevant if hosting a list */
+    /** optional, relevant if hosting a list with 
+     * special custom logic in the setter */
     get ishList(){
         return this.#ishList;
     }
-    /** optional, relevant if hosting a list */
+    /** optional, relevant if hosting a list 
+     * that needs filtering or causing other side effects */
     set ishList(nv){
         //we could filter the list if applicable first
         this.#ishList = nv;
@@ -325,7 +327,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
 
 ## Inference
 
-If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync when refactoring names:
+If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync when refactoring takes place:
 
 ```html
 <table itemscope=worldRankingList>
@@ -354,7 +356,7 @@ If the name of the itemscope list isn't provided, it is inferred.  This can redu
 
 ## Casual Fridays
 
-The examples so far allow for any class or function ptototype library that abides by the minimal protocol mentioned above.  
+The examples so far allow for any class or function prototype library that abides by the minimal protocol mentioned above.  
 
 But *per-each* also provides some extra support to make the developer extra productive.
 
