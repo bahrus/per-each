@@ -169,7 +169,7 @@ interface Ishcycle{
 ... in the case of each iterating item, and
 
 ```JavaScript
-interface IshycleList extends Ishcycle{
+interface IshcycleList extends Ishcycle{
     ishList?: any[];
 }
 ```
@@ -178,7 +178,7 @@ interface IshycleList extends Ishcycle{
 
 ## Libraries that help with developer ergonomics
 
-What we've seen above is that there is a certain amount of ceremony required to define the custom class or function prototype that are needed for per-each to be able to work.  If *per-each* is used frequently, it is advisable to use a helper library to reduce the boilerplate necessary, and the demos in this package do use such a helper library, which builds on [trans-rendering](https://github.com/bahrus/trans-render/wiki/V.--Mount%E2%80%90observing-transforms).
+What we've seen above is that there is a certain amount of ceremony required to define the custom classes and/or function prototypes that are needed for per-each to be able to work.  If *per-each* is used frequently, it is advisable to use a helper library to reduce the boilerplate necessary, and the demos in this package do use such a helper library, which builds on [trans-rendering](https://github.com/bahrus/trans-render/wiki/V.--Mount%E2%80%90observing-transforms).
 
 
 
@@ -211,7 +211,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
 </table>
 ```
 
-This sets property "myIndex" of each ish-based custom element equal to the index, with an optional starting index specified as above (defaults to 1).
+This sets property "myIndex" of each ish-based class or function prototype equal to the index, with an optional starting index specified as above (defaults to 1).
 
 As you can see, the markup gets a little clunky when specifying numerous options.  Two things can be done to reduce the manual effort in configuring the component:
 
@@ -325,7 +325,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
 
 ## Inference
 
-If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync if refactoring names:
+If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync when refactoring names:
 
 ```html
 <table itemscope=worldRankingList>
@@ -354,7 +354,7 @@ If the name of the itemscope list isn't provided, it is inferred.  This can redu
 
 ## Casual Fridays
 
-The examples so far allow for any custom element library that abides by the minimal protocol mentioned above.  
+The examples so far allow for any class or function ptototype library that abides by the minimal protocol mentioned above.  
 
 But *per-each* also provides some extra support to make the developer extra productive.
 
