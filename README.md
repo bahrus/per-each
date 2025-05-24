@@ -169,7 +169,7 @@ interface Ishcycle{
 ... in the case of each iterating item, and
 
 ```JavaScript
-interface IshycleList extends Ishcycle{
+interface IshcycleList extends Ishcycle{
     ishList?: any[];
 }
 ```
