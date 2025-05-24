@@ -90,14 +90,14 @@ In the case of getting passed in an array, the ish property setter sets the clas
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such cookie cutter classes or function prototypes trivial:
 
 ```JavaScript
-import {regIsh} from 'mount-observer/refid/regIsh.js';
+import {regIsh, sym} from 'mount-observer/refid/regIsh.js';
 
 regIsh(document.body, 'worldRankingList', class {
     /**
         * Typically the list of data will be passed in via the oElement.ish property,
         * or retrieved internally via fetch, for example
     */
-    #ishList = [
+    #myList = [
         {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
         {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
         {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
@@ -106,14 +106,14 @@ regIsh(document.body, 'worldRankingList', class {
 
     /** optional, relevant if hosting a list with 
      * special custom logic in the setter */
-    get ishList(){
-        return this.#ishList;
+    get [sym](){
+        return this.#myList;
     }
     /** optional, relevant if hosting a list 
      * that needs filtering or causing other side effects */
-    set ishList(nv){
+    set [sym](nv){
         //we could filter the list if applicable first
-        this.#ishList = nv;
+        this.#myList = nv;
         //Totally optional
         this.#calculateTotal();
        
@@ -121,7 +121,7 @@ regIsh(document.body, 'worldRankingList', class {
 
     /** just an example, entirely optional */
     #calculateTotal(){
-        if(this.#ishList.reducer((accumulator, currentValue) => accumulator + currentValue.total));
+        if(this[sym].reducer((accumulator, currentValue) => accumulator + currentValue.total));
     }
 
     #totalMedalCount;
