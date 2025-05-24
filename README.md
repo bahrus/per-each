@@ -1,4 +1,4 @@
-# per-each (🍑)
+# per-each (🍑) [WIP]
 
 
 [![Playwright Tests](https://github.com/bahrus/per-each/actions/workflows/CI.yml/badge.svg)](https://github.com/bahrus/per-each/actions/workflows/CI.yml)
@@ -20,7 +20,7 @@ On the web presentation layer, since there is no built-in web standard support f
 
 Custom Elements have made great inroads in avoiding the framework trap.  Each component can adopt any binding syntax it wants within the Shadow DOM realm.   However, they fall short when it comes to generating the light children, without a little nudge.
 
-This enhancement provides that nudge.  It builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that provides a common mechanism for binding a view model to the UI -- the ability for a class instance to be attached automatically to an element based on the itemscope attribute, so it can manage the light children of the adorned element.
+This enhancement provides that nudge.  It builds on [a proposal](https://github.com/WICG/webcomponents/issues/1000) that provides a common mechanism for binding a view model to the UI -- the ability for a class instance or function prototype to be attached automatically to an element based on the itemscope attribute, so it can manage the light children of the adorned element.
 
 ## Example 1 -- No template
 
@@ -31,7 +31,7 @@ This could look as follows:
 ```html
 <body>
     ...
-    <table itemscope=national-medal-list>
+    <table itemscope=worldRankingList>
         <thead>
             <tr>
                 <th>Rank</th>
@@ -43,7 +43,7 @@ This could look as follows:
         </thead>
         <tbody>
             <tr 
-                per-each="country-medal-count of national-medal-list">
+                per-each="country of worldRankingList">
                 <td itemprop=rank></td>
                 <td itemprop=noc></td>
                 <td itemprop=gold></td>
@@ -61,20 +61,22 @@ This could look as follows:
 All that *per-each* does is clone the tr element multiple times, and set the attribute for each one, and it passes each list item to the "ish" property of each such tr element:
 
 ```html
-<table itemscope=national-medal-list>
+<table itemscope=worldRankingList>
     <thead>
         ...
     </thead>
     <tbody>
-        <tr itemscope=country-medal-count>
+        <tr itemscope=country>
             ...
         </tr>
-        <tr itemscope=country-medal-count>
+        <tr itemscope=country>
             ...
         </tr>
     </tbody>
 </table>
 ```
+
+"ish" stands for **i**tem**s**cope **h**ost.
 
 Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [*mount-observer*](https://github.com/bahrus/mount-observer), which is a polyfill for [another proposal](https://github.com/WICG/webcomponents/issues/896), each such  itemscope attribute:
 
@@ -90,7 +92,7 @@ Implementing these conventions takes a certain amount of boilerplate effort, sho
 ```JavaScript
 import {regIsh} from 'mount-observer/refid/regIsh.js';
 
-regIsh(document.body, 'national-medal-list', class {
+regIsh(document.body, 'worldRankingList', class {
     /**
         * Typically the list of data will be passed in via the oElement.ish and/or oElement.ish.ishList property,
         * or retrieved internally via fetch, for example
@@ -131,10 +133,10 @@ regIsh(document.body, 'national-medal-list', class {
 });
 
 
-regIsh(document.body, 'country-medal-count', class {
+regIsh(document.body, 'country', class {
 
     /** Optional.  First element of cloned template gets passed in here **/
-    /** For server rendered HTML, the element with itemscope attribute = country-medal-count
+    /** For server rendered HTML, the element with itemscope attribute = country
      * in this case gets passed in
      */
     async '<mount>'(self, element, {csr: true/false}){
@@ -155,7 +157,7 @@ regIsh(document.body, 'country-medal-count', class {
 
 ```
 
-The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country-medal-count* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
+The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a custom element that implements:
 
 ```JavaScript
 interface Ishcycle{
@@ -184,7 +186,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
 ## Referencing the count
 
 ```html
-<table itemscope=national-medal-list>
+<table itemscope=worldRankingList>
     <thead>
         <tr>
             <th>Rank</th>
@@ -195,7 +197,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
     </thead>
     <tbody>
         <tr 
-            per-each="country-medal-count of national-medal-list" 
+            per-each="country of worldRankingList" 
             per-each-map-idx-to="myIndex"
             per-each-idx-start="1">
             <td itemprop=rank></td>
@@ -225,7 +227,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 
 ```html
 <tr 
-    per-each="country-medal-count of national-medal-list" 
+    per-each="country of worldRankingList" 
     per-each-map-idx-to="myIndex"
     per-each-idx-start="1"
 >
@@ -238,7 +240,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 ```html
 <tr 
     🍑-options='{
-        "each": "country-medal-count of national-medal-list",
+        "each": "country of worldRankingList",
         "mapIdxTo": "myIndex",
         "idxStart": 1
     }'
@@ -255,7 +257,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
     <summary>Sample SSR example</summary>
 
 ```html
-<table itemscope=national-medal-list>
+<table itemscope=worldRankingList>
     <caption>Medal List Summer 2024</caption>
     <thead>
         <tr>
@@ -270,7 +272,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
     </thead>
     <tbody>
         <template 
-            per-each="country-medal-count of national-medal-list"
+            per-each="country of worldRankingList"
             per-each-map-idx-to="idx"
             per-each-idx-start="1"
         >
@@ -284,7 +286,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             </tr>
 
         </template>
-        <tr itemscope=country-medal-count>
+        <tr itemscope=country>
             <td itemprop=rank>tbd 1</td>
             <td itemprop=noc>tbd 1</td>
             <td itemprop=gold>tbd 1</td>
@@ -292,7 +294,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 1</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr itemscope=country-medal-count>
+        <tr itemscope=country>
             <td itemprop=rank>tbd 2</td>
             <td itemprop=noc>tbd 2</td>
             <td itemprop=gold>tbd 2</td>
@@ -300,7 +302,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 2</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr itemscope=country-medal-count>
+        <tr itemscope=country>
             <td itemprop=rank>tbd 3</td>
             <td itemprop=noc>tbd 3</td>
             <td itemprop=gold>tbd 3</td>
@@ -308,7 +310,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 3</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr  itemscope=country-medal-count>
+        <tr  itemscope=country>
             <td itemprop=rank>tbd 4</td>
             <td itemprop=noc>tbd 4</td>
             <td itemprop=gold>tbd 4</td>
@@ -327,7 +329,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
 If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync if refactoring names:
 
 ```html
-<table itemscope=national-medal-list>
+<table itemscope=worldRankingList>
     <thead>
         <tr>
             <th>Rank</th>
@@ -339,7 +341,7 @@ If the name of the itemscope list isn't provided, it is inferred.  This can redu
     </thead>
     <tbody>
         <tr 
-            per-each="country-medal-count" >
+            per-each="country" >
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -363,7 +365,7 @@ Expand the markup below to see what that looks like
     <summary>Boilerplate busting iterating</summary>
 
 ```html
-<script nomodule id=national-medal-list>
+<script nomodule id=worldRankingList>
 ({
     propInfo: {
         ishList: {
@@ -395,7 +397,7 @@ Expand the markup below to see what that looks like
 })
 </script>
         
-<script nomodule id="country-medal-count" href=#national-medal-list>
+<script nomodule id="country" href=#worldRankingList>
 ({
     propInfo:{
         rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
@@ -414,7 +416,7 @@ Expand the markup below to see what that looks like
 })
 </script>
 
-<table itemscope=national-medal-list>
+<table itemscope=worldRankingList>
     <caption>Medal List Summer 2024</caption>
     <thead>
         <tr>
@@ -434,7 +436,7 @@ Expand the markup below to see what that looks like
             <td itemprop=bronze></td>
             <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
         </tr>
-        <script href="#country-medal-count" 🍑></script>
+        <script href="#country" 🍑></script>
     </tbody>
 </table>
 ```

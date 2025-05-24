@@ -151,7 +151,7 @@ class PerEach extends BE {
         const {ishList} = ish;
         if(ishList === undefined) return;
         const {bindish} = await import('mount-observer/bindish.js');
-        const parent = enhancedElement.parentElement;
+        //const parent = enhancedElement.parentElement;
         let idx = idxStart;
         const {waitForIdleNodes} = await import('mount-observer/MountObserver.js');
         const fragment = document.createDocumentFragment();
