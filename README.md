@@ -156,14 +156,14 @@ regIsh(document.body, 'country', class {
 
 ```
 
-The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
+The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* class or function prototype chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
 
 ```JavaScript
 interface Ishcycle{
     /** optional */
-    '<mount>'?(el: Element, {csr?: boolean /* TODO */}): Promise<void>;
+    '<mount>'?(self:this, el: Element, {csr?: boolean /* TODO */}): Promise<void>;
     /** optional */
-    '<inScope>'?(el: Element): Promise<void>;
+    '<inScope>'?(self: this, el: Element): Promise<void>;
 }
 ```
 ... in the case of each iterating item, and
