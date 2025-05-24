@@ -85,7 +85,7 @@ Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [
 
 What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish class instance, but rather does an Object.assign / shallow merge (?) of the passed in object into the class instance.  That is, that's what happens if the object being passed in is *not* an array.
 
-In the case of getting passed in an array, the ish property setter sets the class instances's "ishList" property.  So these "scoped class instances" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
+In the case of getting passed in an array, the ish property setter sets the class instances's "ishList" property.  So these "scoped class or function prototype instances" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
 
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such cookie cutter classes or function prototypes trivial:
 
@@ -104,11 +104,11 @@ regIsh(document.body, 'worldRankingList', class {
         ...
     ];
 
-    /** required if hosting a list */
+    /** optional, relevant if hosting a list */
     get ishList(){
         return this.#ishList;
     }
-    /** required if hosting a list */
+    /** optional, relevant if hosting a list */
     set ishList(nv){
         //we could filter the list if applicable first
         this.#ishList = nv;
@@ -156,14 +156,14 @@ regIsh(document.body, 'country', class {
 
 ```
 
-The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* custom element chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
+The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* class or function prototype chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
 
 ```JavaScript
 interface Ishcycle{
     /** optional */
-    '<mount>'?(el: Element, {csr?: boolean /* TODO */}): Promise<void>;
+    '<mount>'?(self:this, el: Element, {csr?: boolean /* TODO */}): Promise<void>;
     /** optional */
-    '<inScope>'?(el: Element): Promise<void>;
+    '<inScope>'?(self: this, el: Element): Promise<void>;
 }
 ```
 ... in the case of each iterating item, and
