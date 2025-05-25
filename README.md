@@ -93,35 +93,31 @@ Implementing these conventions takes a certain amount of boilerplate effort, sho
 import {regIsh, sym} from 'mount-observer/refid/regIsh.js';
 
 regIsh(document.body, 'worldRankingList', class {
-    /**
+
+    
+
+    async 'arr=>'(self, arr){
+        /**
         * Typically the list of data will be passed in via the oElement.ish property,
         * or retrieved internally via fetch, for example
-    */
-    #myList = [
-        {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
-        {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
-        {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
-        ...
-    ];
+        */
+       const returnArr = arr;
+       if(returnArr === undefined){
+            returnArr = [
+                {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
+                {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
+                {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
+                ...
+            ];
+       }
+       this.#calculateTotal(returnArr)
+       return returnArr;
+    }
 
-    /** optional, relevant if hosting a list with 
-     * special custom logic in the setter */
-    get [sym](){
-        return this.#myList;
-    }
-    /** optional, relevant if hosting a list 
-     * that needs filtering or causing other side effects */
-    set [sym](nv){
-        //we could filter the list if applicable first
-        this.#myList = nv;
-        //Totally optional
-        this.#calculateTotal();
-       
-    }
 
     /** just an example, entirely optional */
-    #calculateTotal(){
-        if(this[sym].reducer((accumulator, currentValue) => accumulator + currentValue.total));
+    #calculateTotal(arr){
+        this.#totalMedalCount = arr.reducer((accumulator, currentValue) => accumulator + currentValue.total));
     }
 
     #totalMedalCount;
