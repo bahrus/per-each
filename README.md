@@ -94,8 +94,6 @@ import {regIsh, sym} from 'mount-observer/refid/regIsh.js';
 
 regIsh(document.body, 'worldRankingList', class {
 
-    
-
     async 'arr=>'(self, arr){
         /**
         * Typically the list of data will be passed in via the oElement.ish property,
@@ -162,6 +160,12 @@ interface Ishcycle{
     '<mount>'?(self:this, el: Element, {csr?: boolean /* TODO */}): Promise<void>;
     /** optional */
     '<inScope>'?(self: this, el: Element): Promise<void>;
+    /** optional */
+    'arr=>'?(
+        self: Ishcycle, arr: any[] | undefined, 
+        el: Element & HasIsh, 
+        options: BindishOptions)
+        : Promise<void | any[]>;
 }
 ```
 ... in the case of each iterating item, and
