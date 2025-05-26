@@ -6,7 +6,7 @@
     <title>Single Node No Template</title>
     <!-- #include virtual="/imports.html" -->
      <script type=module>
-        import './CountryMedalCount.js';
+        import './Country.js';
         import './NationalMedalList.js';
         import '/emc.js';
      </script>
@@ -28,7 +28,7 @@
         <tbody>
 
             <tr 
-                per-each="country-medal-count of WorldRankingList"
+                per-each="country of WorldRankingList"
                 per-each-map-idx-to=idx
                 per-each-idx-start=1
                 per-each-idle-timeout=10000

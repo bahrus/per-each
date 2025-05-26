@@ -28,4 +28,4 @@ export class CountryMedalCount extends Scope {
 }
 
 CountryMedalCount.bootUp();
-regIsh(document.body, 'country-medal-count', CountryMedalCount);
+regIsh(document.body, 'country', CountryMedalCount);
