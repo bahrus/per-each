@@ -31,7 +31,7 @@ This could look as follows:
 ```html
 <body>
     ...
-    <table itemscope=worldRankingList>
+    <table itemscope=WorldRankingList>
         <thead>
             <tr>
                 <th>Rank</th>
@@ -43,7 +43,7 @@ This could look as follows:
         </thead>
         <tbody>
             <tr 
-                per-each="country of worldRankingList">
+                per-each="country of WorldRankingList">
                 <td itemprop=rank></td>
                 <td itemprop=noc></td>
                 <td itemprop=gold></td>
@@ -61,7 +61,7 @@ This could look as follows:
 All that *per-each* does is clone the tr element multiple times, and set the attribute for each one, and it passes each list item to the "ish" property of each such tr element:
 
 ```html
-<table itemscope=worldRankingList>
+<table itemscope=WorldRankingList>
     <thead>
         ...
     </thead>
@@ -92,7 +92,7 @@ Implementing these conventions takes a certain amount of boilerplate effort, sho
 ```JavaScript
 import {regIsh, sym} from 'mount-observer/refid/regIsh.js';
 
-regIsh(document.body, 'worldRankingList', class {
+regIsh(document.body, 'WorldRankingList', class {
 
     async 'arr=>'(self, arr){
         /**
@@ -189,7 +189,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
 ## Referencing the count
 
 ```html
-<table itemscope=worldRankingList>
+<table itemscope=WorldRankingList>
     <thead>
         <tr>
             <th>Rank</th>
@@ -200,7 +200,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
     </thead>
     <tbody>
         <tr 
-            per-each="country of worldRankingList" 
+            per-each="country of WorldRankingList" 
             per-each-map-idx-to="myIndex"
             per-each-idx-start="1">
             <td itemprop=rank></td>
@@ -230,7 +230,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 
 ```html
 <tr 
-    per-each="country of worldRankingList" 
+    per-each="country of WorldRankingList" 
     per-each-map-idx-to="myIndex"
     per-each-idx-start="1"
 >
@@ -243,7 +243,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 ```html
 <tr 
     🍑-options='{
-        "each": "country of worldRankingList",
+        "each": "country of WorldRankingList",
         "mapIdxTo": "myIndex",
         "idxStart": 1
     }'
@@ -260,7 +260,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
     <summary>Sample SSR example</summary>
 
 ```html
-<table itemscope=worldRankingList>
+<table itemscope=WorldRankingList>
     <caption>Medal List Summer 2024</caption>
     <thead>
         <tr>
@@ -275,7 +275,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
     </thead>
     <tbody>
         <template 
-            per-each="country of worldRankingList"
+            per-each="country of WorldRankingList"
             per-each-map-idx-to="idx"
             per-each-idx-start="1"
         >
@@ -332,7 +332,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
 If the name of the itemscope list isn't provided, it is inferred.  This can reduce things getting out of sync when refactoring takes place:
 
 ```html
-<table itemscope=worldRankingList>
+<table itemscope=WorldRankingList>
     <thead>
         <tr>
             <th>Rank</th>
@@ -368,7 +368,7 @@ Expand the markup below to see what that looks like
     <summary>Boilerplate busting iterating</summary>
 
 ```html
-<script nomodule id=worldRankingList>
+<script nomodule id=WorldRankingList>
 ({
     propInfo: {
         ishList: {
@@ -400,7 +400,7 @@ Expand the markup below to see what that looks like
 })
 </script>
         
-<script nomodule id="country" href=#worldRankingList>
+<script nomodule id="country" href=#WorldRankingList>
 ({
     propInfo:{
         rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
@@ -419,7 +419,7 @@ Expand the markup below to see what that looks like
 })
 </script>
 
-<table itemscope=worldRankingList>
+<table itemscope=WorldRankingList>
     <caption>Medal List Summer 2024</caption>
     <thead>
         <tr>

@@ -44,4 +44,4 @@ export class WorldRankingList extends Scope {
 }
 
 WorldRankingList.bootUp();
-regIsh(document.body, 'worldRankingList', WorldRankingList);
+regIsh(document.body, 'WorldRankingList', WorldRankingList);
