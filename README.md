@@ -124,6 +124,8 @@ regIsh(document.body, 'worldRankingList', class {
     }
     '<mount>'(self, el){
         //do any rendering / event handling  that is desired on the element
+        //To update the list:
+        el.ish = [...newList]
     }
 });
 
