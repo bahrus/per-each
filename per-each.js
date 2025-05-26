@@ -30,6 +30,7 @@ class PerEach extends BE {
             itemTemplate:{},
             emc: {},
             idleTimeout: {},
+            ishContainer: {},
         },
         compacts: {
             when_each_changes_call_parse: 0,
@@ -39,7 +40,7 @@ class PerEach extends BE {
                 ifAllOf: ['itemProp', 'listProp'],
             },
             hydrate: {
-                ifAllOf: ['ish', 'itemTemplate'],
+                ifAllOf: ['ish', 'itemTemplate', 'ishContainer'],
             },
         },
         positractions: [resolved, rejected],
@@ -76,8 +77,8 @@ class PerEach extends BE {
      */
     async init(self) {
         const { itemProp, listProp, enhancedElement, emc } = self;
-        const closest = enhancedElement.closest(`[itemscope="${listProp}"`);
-        if(closest === null) throw 404;
+        const ishContainer = enhancedElement.closest(`[itemscope="${listProp}"`);
+        if(ishContainer === null) throw 404;
         let itemTemplate = enhancedElement;
         const isScriptEl = enhancedElement instanceof HTMLScriptElement;
         if(isScriptEl && enhancedElement.hasAttribute('href')) {
@@ -92,11 +93,11 @@ class PerEach extends BE {
          * @type {EventTarget}
          */
         let ish;
-        if(!('ish' in closest) || !(closest.ish instanceof EventTarget)){
+        if(!('ish' in ishContainer) || !(typeof(ishContainer.ish) !== 'function')){
             const {waitForIsh} = await import('mount-observer/waitForIsh.js');
-            ish = await waitForIsh(closest);
+            ish = await waitForIsh(ishContainer);
         }else{
-            ish = closest.ish;
+            ish = ishContainer.ish;
         }
 
         if(!(itemTemplate instanceof HTMLTemplateElement)){
@@ -127,7 +128,8 @@ class PerEach extends BE {
         }
         return /** @type {PAP} */({
             ish,
-            itemTemplate
+            itemTemplate,
+            ishContainer
         });
     }
 
@@ -137,7 +139,10 @@ class PerEach extends BE {
      * @returns 
      */
     async hydrate(self){
-        const {ish, itemProp, mapIdxTo, idxStart, itemTemplate, emc, idleTimeout, enhancedElement} = self;
+        const {
+            ish, itemProp, mapIdxTo, idxStart, itemTemplate, emc, idleTimeout,
+            enhancedElement, ishContainer
+        } = self;
         const {Clone$} = await import('trans-render/trHelpers/Clone$.js');
         /**
          * @type {Clone$Options}
@@ -151,7 +156,7 @@ class PerEach extends BE {
             idleTimeout,
             seedEl: enhancedElement,
             ish,
-            ishContainer: enhancedElement,
+            ishContainer,
             //csr: true,
         };
         new Clone$(cloneOptions);
