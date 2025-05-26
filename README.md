@@ -170,15 +170,8 @@ interface Ishcycle{
         : Promise<void | any[]>;
 }
 ```
-... in the case of each iterating item, and
 
-```JavaScript
-interface IshcycleList extends Ishcycle{
-    ishList?: any[];
-}
-```
 
-... in the case of the DOM element that holds, and manipulates, and possibly retrieves the list from which the *per-each* looping derives.
 
 ## Libraries that help with developer ergonomics
 
