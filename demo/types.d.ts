@@ -13,7 +13,7 @@ export interface CountryMedalCountActions {
 }
 
 export interface NationalMedalListProps {
-    ishList: CountryMedalCountProps[];
+    //ishList: CountryMedalCountProps[];
     countryMedalCount: CountryMedalCountProps[];
     totalMedalCount: number;
 }
