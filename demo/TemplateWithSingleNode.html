@@ -61,11 +61,11 @@
             const table = document.querySelector('table');
             const ish = table.ish;
 
-            const ishList = [...ish.ishList];
+            const ishList = Array.from(ish);
             ishList.pop();
             ishList.pop();
             ishList.pop();
-            table.ish.ishList = ishList;
+            table.ish = ishList;
         }
         
     </script>
