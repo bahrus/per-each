@@ -138,7 +138,7 @@ class PerEach extends BE {
      */
     hydrate(self){
         const {ish} = self;
-        ish.addEventListener('ishListChanged', this);
+        ish.addEventListener('ish', this);
         this.handleEvent();
         return /** @type {PAP} */({
             resolved: true
