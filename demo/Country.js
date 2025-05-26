@@ -1,5 +1,5 @@
 //@ts-check
-/** @import {CountryMedalCountProps, CountryMedalCountActions} from './types' */
+/** @import {CountryProps, CountryActions} from './types' */
 /** @import {IshConfig } from '../ts-refs/trans-render/froop/types' */
 
 import {Scope} from 'trans-render/froop/Scope.js';
@@ -7,7 +7,7 @@ import {regIsh} from 'mount-observer/refid/regIsh.js';
 
 export class Country extends Scope {
     /**
-     * @type {IshConfig<CountryMedalCountProps, CountryMedalCountActions>}
+     * @type {IshConfig<CountryProps, CountryActions>}
      */
     static config = {
         propInfo:{

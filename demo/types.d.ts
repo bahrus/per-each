@@ -1,4 +1,4 @@
-export interface CountryMedalCountProps {
+export interface CountryProps {
     rank: number;
     noc: string;
     gold: number;
@@ -8,12 +8,12 @@ export interface CountryMedalCountProps {
     idx: number;
 }
 
-export interface CountryMedalCountActions {
+export interface CountryActions {
     
 }
 
 export interface WorldRankingListProps {
-    countryMedalCount: CountryMedalCountProps[];
+    countryMedalCount: CountryProps[];
     totalMedalCount: number;
 }
 
