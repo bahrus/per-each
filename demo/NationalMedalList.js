@@ -14,20 +14,9 @@ export class NationalMedalList extends Scope {
      */
     static config = {
         propInfo: {
-            // ishList: {
-            //     def: [
-            //         {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
-            //         {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
-            //         {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
-            //     ]
-            // },
             totalMedalCount: {
                 def: 0,
             },
-        },
-        compacts:{
-            when_ishList_changes_call_calcTotal: 0,
-            when_ishList_changes_dispatch: 'ishListChanged'
         },
         xform:{
             '-o totalMedalCount': 0
@@ -35,21 +24,9 @@ export class NationalMedalList extends Scope {
     };
 
 
-
     /**
      * 
-     * @param {NationalMedalListProps} self 
-     */
-    calcTotal(self){
-        const {ishList} = self;
-        return ({
-            totalMedalCount: ishList.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0)
-        })
-    }
-
-    /**
-     * 
-     * @param {Scope} self 
+     * @param {Scope & NationalMedalListProps} self 
      * @param {any[]} arr 
      */
     async 'arr=>'(self, arr){
@@ -61,6 +38,7 @@ export class NationalMedalList extends Scope {
                 {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
             ];
         }
+        self.totalMedalCount = returnArr.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0);
         return super['arr=>'](self, returnArr);
     }
 }

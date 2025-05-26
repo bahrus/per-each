@@ -139,7 +139,6 @@ class PerEach extends BE {
     async hydrate(self){
         const {ish, itemProp, mapIdxTo, idxStart, itemTemplate, emc, idleTimeout, enhancedElement} = self;
         const {Clone$} = await import('trans-render/trHelpers/Clone$.js');
-        const {assignGingerly} = await import('trans-render/lib/assignGingerly.js');
         /**
          * @type {Clone$Options}
          */
@@ -156,116 +155,9 @@ class PerEach extends BE {
             //csr: true,
         };
         new Clone$(cloneOptions);
-        // const {ish} = self;
-        // ish.addEventListener('ish', this);
-        // this.handleEvent();
-        // return /** @type {PAP} */({
-        //     resolved: true
-        // });
     }
 
-    // async handleEvent(){
-    //     const self = /** @type {BAP} */(/** @type {any} */(this));
-    //     const {ish, enhancedElement, itemProp, mapIdxTo, idxStart, itemTemplate, emc, idleTimeout} = self;
-    //     const {ishList} = ish;
-    //     if(ishList === undefined) return;
-    //     const {bindish} = await import('mount-observer/bindish.js');
-    //     //const parent = enhancedElement.parentElement;
-    //     let idx = idxStart;
-    //     const {waitForIdleNodes} = await import('mount-observer/MountObserver.js');
-    //     const fragment = document.createDocumentFragment();
-    //     /**
-    //      * @type {Array<Node>}
-    //      */
-    //     const nodesWeWantToWaitFor  = [];
-    //     const existingIshNodes = [];
-    //     let ns = enhancedElement;
-    //     while(ns !== null){
-    //         if(ns.getAttribute('itemscope') === itemProp){
-    //             existingIshNodes.push(ns);
-    //         }
-    //         ns = ns.nextElementSibling;
-    //     }
-    //     let absIdx = 0;
-    //     let isOutOfRange = false;
-    //     let lastExisting = enhancedElement;
-    //     for(const item of ishList){
-    //         if(!isOutOfRange){
-    //             const existingIshNode = existingIshNodes[absIdx];
-    //             if(existingIshNode !== undefined){
-    //                 existingIshNode.ish = item;
-    //                 if(mapIdxTo !== undefined){
-    //                     existingIshNode.ish[mapIdxTo] = idx++;
-    //                 }
-    //                 lastExisting = existingIshNode;
-    //                 absIdx++;
-    //                 continue;
-    //             }else{
-    //                 isOutOfRange = true;
-    //             }
-    //         }
-    //         absIdx++;
-    //         let templToClone = itemTemplate;
-    //         const externalRefId = templToClone.dataset.blowDryRef;
-    //         if (externalRefId){
-    //             templToClone = window[externalRefId];
-    //         }
-                
-    //         /**
-    //          * @type {DocumentFragment}
-    //          */
-    //         const clone =  /**@type {any} */(itemTemplate.content.cloneNode(true));
-    //         const children = Array.from(clone.children);
-    //         children.forEach(c => {nodesWeWantToWaitFor.push(c)});
-    //         //TODO:  modify template element so don't have to do this with every loop
-    //         /** @type {HasIsh & Element} */
-    //         const firstElementChild = /** @type {any} */(clone.firstElementChild);
-    //         if(firstElementChild === null) throw 404;
-    //         firstElementChild.ish = item;
-    //         if(mapIdxTo !== undefined){
-    //             firstElementChild.ish[mapIdxTo] = idx++;
-    //         }
-    //         firstElementChild.setAttribute('itemscope', itemProp);
-    //         if(children.length > 1){
-    //             const {base} = emc;
-    //             let itemref = firstElementChild.getAttribute('itemref') || '';
-    //             for(let i = 1, ii = children.length; i < ii; i++){
-    //                 const child = children[i];
-    //                 if(!child.id){
-    //                     const {getCount} = await import('trans-render/dss/tref/getCount.js');
-    //                     child.id = `${base}-${getCount(base + '')}`;
-                        
-    //                     itemref += ' ' + child.id;
-    //                 }
-    //             }
-    //             firstElementChild.setAttribute('itemref', itemref.trim());
-    //         }
-    //         await bindish(clone, enhancedElement, {
-    //             assigner: assignGingerly,
-    //             csr: true,
-    //         }); //TODO assign gingerly
-    //         //TODO:  max buffer size
-    //         fragment.appendChild(clone);
-    //     }
-    //     if(absIdx < existingIshNodes.length){
-    //         const {deleteEl} = await import('trans-render/dss/tref/deleteEl.js');
-    //         for(let i = absIdx; i < existingIshNodes.length; i++){
-    //             const existingIshNode = existingIshNodes[i];
-    //             if(existingIshNode.hasAttribute('itemref')){
-    //                 deleteEl(existingIshNode);
-    //             }else{
-    //                 existingIshNode.remove();
-    //             }
-                
-    //         }
-    //     }
-    //     await waitForIdleNodes(nodesWeWantToWaitFor, idleTimeout);
-    //     if(lastExisting.hasAttribute('itemref')){
-    //         const {tail} = await import('trans-render/dss/tref/tail.js');
-    //         lastExisting = tail(lastExisting);
-    //     }
-    //     lastExisting.after(fragment);
-    // }
+
 }
 
 await PerEach.bootUp();
