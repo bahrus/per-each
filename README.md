@@ -43,7 +43,7 @@ This could look as follows:
         </thead>
         <tbody>
             <tr 
-                per-each="country of WorldRankingList">
+                per-each="Country of WorldRankingList">
                 <td itemprop=rank></td>
                 <td itemprop=noc></td>
                 <td itemprop=gold></td>
@@ -66,10 +66,10 @@ All that *per-each* does is clone the tr element multiple times, and set the att
         ...
     </thead>
     <tbody>
-        <tr itemscope=country>
+        <tr itemscope=Country>
             ...
         </tr>
-        <tr itemscope=country>
+        <tr itemscope=Country>
             ...
         </tr>
     </tbody>
@@ -130,10 +130,10 @@ regIsh(document.body, 'WorldRankingList', class {
 });
 
 
-regIsh(document.body, 'country', class {
+regIsh(document.body, 'Country', class {
 
     /** Optional.  First element of cloned template gets passed in here **/
-    /** For server rendered HTML, the element with itemscope attribute = country
+    /** For server rendered HTML, the element with itemscope attribute = Country
      * in this case gets passed in
      */
     async '<mount>'(self, element, {csr: true/false}){
@@ -154,7 +154,7 @@ regIsh(document.body, 'country', class {
 
 ```
 
-The HTML markup in the example is used in the demo examples of this package, and in those demo's the *country* class or function prototype chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
+The HTML markup in the example is used in the demo examples of this package, and in those demo's the *Country* class or function prototype chooses to use microdata ("itemprop") for binding clues. But *per-each* doesn't really care about that, and doesn't look for any itemprop attributes (only itemscope).  It just needs a class or function prototype that implements:
 
 ```JavaScript
 interface Ishcycle{
@@ -200,7 +200,7 @@ What we've seen above is that there is a certain amount of ceremony required to 
     </thead>
     <tbody>
         <tr 
-            per-each="country of WorldRankingList" 
+            per-each="Country of WorldRankingList" 
             per-each-map-idx-to="myIndex"
             per-each-idx-start="1">
             <td itemprop=rank></td>
@@ -230,7 +230,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 
 ```html
 <tr 
-    per-each="country of WorldRankingList" 
+    per-each="Country of WorldRankingList" 
     per-each-map-idx-to="myIndex"
     per-each-idx-start="1"
 >
@@ -243,7 +243,7 @@ Also, there's one setting that allows all the others to be specified via the mor
 ```html
 <tr 
     🍑-options='{
-        "each": "country of WorldRankingList",
+        "each": "Country of WorldRankingList",
         "mapIdxTo": "myIndex",
         "idxStart": 1
     }'
@@ -275,7 +275,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
     </thead>
     <tbody>
         <template 
-            per-each="country of WorldRankingList"
+            per-each="Country of WorldRankingList"
             per-each-map-idx-to="idx"
             per-each-idx-start="1"
         >
@@ -289,7 +289,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             </tr>
 
         </template>
-        <tr itemscope=country>
+        <tr itemscope=Country>
             <td itemprop=rank>tbd 1</td>
             <td itemprop=noc>tbd 1</td>
             <td itemprop=gold>tbd 1</td>
@@ -297,7 +297,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 1</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr itemscope=country>
+        <tr itemscope=Country>
             <td itemprop=rank>tbd 2</td>
             <td itemprop=noc>tbd 2</td>
             <td itemprop=gold>tbd 2</td>
@@ -305,7 +305,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 2</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr itemscope=country>
+        <tr itemscope=Country>
             <td itemprop=rank>tbd 3</td>
             <td itemprop=noc>tbd 3</td>
             <td itemprop=gold>tbd 3</td>
@@ -313,7 +313,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 3</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr  itemscope=country>
+        <tr  itemscope=Country>
             <td itemprop=rank>tbd 4</td>
             <td itemprop=noc>tbd 4</td>
             <td itemprop=gold>tbd 4</td>
@@ -344,7 +344,7 @@ If the name of the itemscope list isn't provided, it is inferred.  This can redu
     </thead>
     <tbody>
         <tr 
-            per-each="country" >
+            per-each="Country" >
             <td itemprop=rank></td>
             <td itemprop=noc></td>
             <td itemprop=gold></td>
@@ -400,7 +400,7 @@ Expand the markup below to see what that looks like
 })
 </script>
         
-<script nomodule id="country" href=#WorldRankingList>
+<script nomodule id="Country" href=#WorldRankingList>
 ({
     propInfo:{
         rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
@@ -439,7 +439,7 @@ Expand the markup below to see what that looks like
             <td itemprop=bronze></td>
             <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
         </tr>
-        <script href="#country" 🍑></script>
+        <script href="#Country" 🍑></script>
     </tbody>
 </table>
 ```

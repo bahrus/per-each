@@ -13,7 +13,7 @@ export interface CountryActions {
 }
 
 export interface WorldRankingListProps {
-    countryMedalCount: CountryProps[];
+    CountryMedalCount: CountryProps[];
     totalMedalCount: number;
 }
 

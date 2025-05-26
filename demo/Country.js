@@ -28,4 +28,4 @@ export class Country extends Scope {
 }
 
 Country.bootUp();
-regIsh(document.body, 'country', Country);
+regIsh(document.body, 'Country', Country);
