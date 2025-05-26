@@ -1,16 +1,16 @@
 //@ts-check
-/** @import {NationalMedalListProps, NationalMedalListActions} from './types' */
+/** @import {WorldRankingListProps, WorldRankingListActions} from './types' */
 /** @import {IshConfig } from '../ts-refs/trans-render/froop/types' */
 
 import {Scope} from 'trans-render/froop/Scope.js';
 import {regIsh} from 'mount-observer/refid/regIsh.js';
 
 /**
- * @implements {NationalMedalListActions}
+ * @implements {WorldRankingListActions}
  */
-export class NationalMedalList extends Scope {
+export class WorldRankingList extends Scope {
     /**
-     * @type {IshConfig<NationalMedalListProps, NationalMedalListActions>}
+     * @type {IshConfig<WorldRankingListProps, WorldRankingListActions>}
      */
     static config = {
         propInfo: {
@@ -26,7 +26,7 @@ export class NationalMedalList extends Scope {
 
     /**
      * 
-     * @param {Scope & NationalMedalListProps} self 
+     * @param {Scope & WorldRankingListProps} self 
      * @param {any[]} arr 
      */
     async 'arr=>'(self, arr){
@@ -43,5 +43,5 @@ export class NationalMedalList extends Scope {
     }
 }
 
-NationalMedalList.bootUp();
-regIsh(document.body, 'national-medal-list', NationalMedalList);
+WorldRankingList.bootUp();
+regIsh(document.body, 'worldRankingList', WorldRankingList);

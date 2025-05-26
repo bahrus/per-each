@@ -12,13 +12,9 @@ export interface CountryMedalCountActions {
     
 }
 
-export interface NationalMedalListProps {
-    //ishList: CountryMedalCountProps[];
+export interface WorldRankingListProps {
     countryMedalCount: CountryMedalCountProps[];
     totalMedalCount: number;
 }
 
-export interface NationalMedalListActions {
-    //disp(self: NationalMedalListProps): void;
-    calcTotal(self: NationalMedalListProps): Partial<NationalMedalListProps>;
-}
+export interface WorldRankingListActions {}
