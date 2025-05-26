@@ -5,7 +5,7 @@
 import {Scope} from 'trans-render/froop/Scope.js';
 import {regIsh} from 'mount-observer/refid/regIsh.js';
 
-export class CountryMedalCount extends Scope {
+export class Country extends Scope {
     /**
      * @type {IshConfig<CountryMedalCountProps, CountryMedalCountActions>}
      */
@@ -27,5 +27,5 @@ export class CountryMedalCount extends Scope {
     }
 }
 
-CountryMedalCount.bootUp();
-regIsh(document.body, 'country', CountryMedalCount);
+Country.bootUp();
+regIsh(document.body, 'country', Country);
