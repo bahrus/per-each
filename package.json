@@ -12,15 +12,15 @@
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-enhanced": "0.0.178",
-    "be-hive": "0.0.259",
-    "mount-observer": "0.0.67",
-    "trans-render": "0.0.904"
+    "be-enhanced": "0.0.182",
+    "be-hive": "0.0.262",
+    "mount-observer": "0.0.76",
+    "trans-render": "0.0.909"
   },
   "devDependencies": {
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.54.1",
     "ssi-server": "0.0.1",
-    "be-switched": "0.0.121"
+    "be-switched": "0.0.123"
   },
   "author": "anderson.bruce.b@gmail.com",
   "license": "MIT"
