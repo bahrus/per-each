@@ -2,9 +2,7 @@
 import { propInfo, rejected, resolved } from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
 import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
-import { EventHandler } from 'trans-render/EventHandler.js';
-import { assignGingerly } from 'trans-render/lib/assignGingerly.js';
-import { Scope } from 'trans-render/froop/Scope.js';
+
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types' */
 /** @import {Actions, PAP, AllProps, AP, BAP} from './ts-refs/per-each/types' */;
 /** @import {HasIsh} from './ts-refs/mount-observer/types' */
