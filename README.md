@@ -440,19 +440,42 @@ Expand the markup below to see what that looks like
 ## Conditional Templates [TODO]
 
 ```html
-<template>
-    <details style="margin-left:20px;" per-each="Dir of Dir">
-        <summary itemprop=name></summary>
-        <template 🎚️="on when ^{details}." data-blow-dry-ref="details-summary"></template>
-    </details>
-</template>
-
-<button name=dirPick disabled>Pick directory</button>
-
-<details itemscope=Dir when-resolved="@dirPick+📁⛏️ set $0?.ish?.folderPicker">
-    <summary itemprop=name></summary>
-    <template  🎚️="on when ^{details}." data-blow-dry-ref=details-summary></template>
-</details>
+<table itemscope=WorldRankingList>
+    <caption>Medal List Summer 2024</caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Rank</th>
+            <th>NOC</th>
+            <th>Gold</th>
+            <th>Silver</th>
+            <th>Bronze</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template 
+            per-each="WorldRankingList"
+            per-each-map-idx-to="idx"
+            per-each-idx-start="1"
+            per-each-switch=
+        >
+            <template itemscope=firstTier>
+            <tr>
+                <td itemprop=rank></td>
+                <td itemprop=noc></td>
+                <td itemprop=gold></td>
+                <td itemprop=silver></td>
+                <td itemprop=bronze></td>
+                <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
+            </tr>
+            </template>
+            <template>
+            </template>
+        </template>
+        
+    </tbody>
+</table>
 ```
 
 
