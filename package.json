@@ -14,13 +14,13 @@
   "dependencies": {
     "be-enhanced": "0.0.182",
     "be-hive": "0.0.262",
-    "mount-observer": "0.0.77",
-    "trans-render": "0.0.910"
+    "mount-observer": "0.0.87",
+    "trans-render": "0.0.920"
   },
   "devDependencies": {
-    "@playwright/test": "1.54.1",
+    "@playwright/test": "1.54.2",
     "ssi-server": "0.0.1",
-    "be-switched": "0.0.123"
+    "be-switched": "0.0.129"
   },
   "author": "anderson.bruce.b@gmail.com",
   "license": "MIT"

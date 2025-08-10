@@ -437,6 +437,25 @@ Expand the markup below to see what that looks like
 
 </details>
 
+## Conditional Templates [TODO]
+
+```html
+<template>
+    <details style="margin-left:20px;" per-each="Dir of Dir">
+        <summary itemprop=name></summary>
+        <template 🎚️="on when ^{details}." data-blow-dry-ref="details-summary"></template>
+    </details>
+</template>
+
+<button name=dirPick disabled>Pick directory</button>
+
+<details itemscope=Dir when-resolved="@dirPick+📁⛏️ set $0?.ish?.folderPicker">
+    <summary itemprop=name></summary>
+    <template  🎚️="on when ^{details}." data-blow-dry-ref=details-summary></template>
+</details>
+```
+
+
 ## Viewing Locally
 
 Any web server that serves static files with server-side includes will do but...
