@@ -458,19 +458,25 @@ Expand the markup below to see what that looks like
             per-each="WorldRankingList"
             per-each-map-idx-to="idx"
             per-each-idx-start="1"
-            per-each-switch=
+            per-each-switch='{
+               "firstTier":{
+                  "ifAllOf": [],
+                  "ifNoneOf": []
+
         >
-            <template itemscope=firstTier>
-            <tr>
+            
+            <template as=firstTier>
+               <tr>
                 <td itemprop=rank></td>
                 <td itemprop=noc></td>
                 <td itemprop=gold></td>
                 <td itemprop=silver></td>
                 <td itemprop=bronze></td>
                 <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
-            </tr>
+             </tr>
             </template>
-            <template>
+            <template as=secondTier>
+            
             </template>
         </template>
         
