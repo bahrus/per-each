@@ -437,6 +437,10 @@ Expand the markup below to see what that looks like
 
 </details>
 
+## Coupling the xform with the template
+
+If inheriting from 
+
 ## Conditional Templates [TODO]
 
 ```html
