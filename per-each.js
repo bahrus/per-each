@@ -4,7 +4,7 @@ import { BE } from 'be-enhanced/BE.js';
 import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
 
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types' */
-/** @import {Actions, PAP, AllProps, AP, BAP} from './ts-refs/per-each/types' */;
+/** @import {Actions, PAP, AllProps, AP, BAP, LoopingParameters} from './ts-refs/per-each/types' */;
 /** @import {HasIsh} from './ts-refs/mount-observer/types' */
 /** @import {Clone$Options} from './ts-refs/trans-render/types.js' */
 /**
@@ -19,26 +19,29 @@ class PerEach extends BE {
     static config = {
         propInfo:{
             ...propInfo,
-            each: {},
-            itemProp:{},
-            listProp:{},
-            ish:{},
+            //each: {},
+            // itemProp:{},
+            // listProp:{},
+            //ish:{},
             mapIdxTo:{},
             idxStart:{def: 1},
-            itemTemplate:{},
+            itemTemplates:{},
             emc: {},
             idleTimeout: {},
-            ishContainer: {},
+            //ishContainer: {},
+            rawStatements: {},
+            parsedStatements: {},
+            loopingParameters: {},
         },
-        compacts: {
-            when_each_changes_call_parse: 0,
-        },
+        // compacts: {
+        //     when_each_changes_call_parse: 0,
+        // },
         actions: {
             init: {
-                ifAllOf: ['itemProp', 'listProp'],
+                ifAllOf: ['parsedStatements'],
             },
             hydrate: {
-                ifAllOf: ['ish', 'itemTemplate', 'ishContainer'],
+                ifAllOf: ['itemTemplates', 'loopingParameters'],
             },
         },
         positractions: [resolved, rejected],
@@ -46,88 +49,135 @@ class PerEach extends BE {
 
     de = de;
 
-    /**
-     * 
-     * @param {BAP} self 
-     * @returns 
-     */
-    parse(self){
-        const { each, enhancedElement} = self;
-        const split = each.split(' of ').map(s => s.trim());
-        let [itemProp, listProp] = split;
-        if(listProp === undefined){
-            const inferredList = enhancedElement.closest('[itemscope]:not([itemscope=""])');
-            if(inferredList === null) throw 404;
-            listProp = inferredList.getAttribute('itemscope') || '';
-        }
-        if(!itemProp && enhancedElement instanceof HTMLScriptElement && enhancedElement.hasAttribute('href')){
-            itemProp = enhancedElement.getAttribute('href')?.substring(1);
-        }
-        return /** @type {PAP} */({
-            itemProp, listProp
-        });
-    }
+    // /**
+    //  * 
+    //  * @param {BAP} self 
+    //  * @returns 
+    //  */
+    // parse(self){
+    //     const { each, enhancedElement} = self;
+    //     const split = each.split(' of ').map(s => s.trim());
+    //     let [itemProp, listProp] = split;
+    //     if(listProp === undefined){
+    //         const inferredList = enhancedElement.closest('[itemscope]:not([itemscope=""])');
+    //         if(inferredList === null) throw 404;
+    //         listProp = inferredList.getAttribute('itemscope') || '';
+    //     }
+    //     if(!itemProp && enhancedElement instanceof HTMLScriptElement && enhancedElement.hasAttribute('href')){
+    //         itemProp = enhancedElement.getAttribute('href')?.substring(1);
+    //     }
+    //     return /** @type {PAP} */({
+    //         itemProp, listProp
+    //     });
+    // }
 
-    /**
-     * 
-     * @param {BAP} self 
-     * @returns 
-     */
-    async init(self) {
-        const { itemProp, listProp, enhancedElement, emc } = self;
-        const ishContainer = enhancedElement.closest(`[itemscope="${listProp}"`);
-        if(ishContainer === null) throw 404;
-        let itemTemplate = enhancedElement;
-        const isScriptEl = enhancedElement instanceof HTMLScriptElement;
-        if(isScriptEl && enhancedElement.hasAttribute('href')) {
-            itemTemplate = itemTemplate.previousElementSibling;
-            const {ScopeScript} = await import('trans-render/froop/ScopeScript.js');
-            await ScopeScript(enhancedElement);
-            // try{
-            //     await ScopeScriptImpl(enhancedElement, listProp);
-            // }catch(e){}
-        }
-        /**
-         * @type {EventTarget}
-         */
-        let ish;
-        if(!('ish' in ishContainer) || !(typeof(ishContainer.ish) !== 'function')){
-            const {waitForIsh} = await import('mount-observer/waitForIsh.js');
-            ish = await waitForIsh(ishContainer);
-        }else{
-            ish = ishContainer.ish;
-        }
+    // /**
+    //  * 
+    //  * @param {BAP} self 
+    //  * @returns 
+    //  */
+    // async init(self) {
+    //     const { itemProp, listProp, enhancedElement, emc } = self;
+    //     const ishContainer = enhancedElement.closest(`[itemscope="${listProp}"`);
+    //     if(ishContainer === null) throw 404;
+    //     let itemTemplate = enhancedElement;
+    //     const isScriptEl = enhancedElement instanceof HTMLScriptElement;
+    //     if(isScriptEl && enhancedElement.hasAttribute('href')) {
+    //         itemTemplate = itemTemplate.previousElementSibling;
+    //         const {ScopeScript} = await import('trans-render/froop/ScopeScript.js');
+    //         await ScopeScript(enhancedElement);
+    //         // try{
+    //         //     await ScopeScriptImpl(enhancedElement, listProp);
+    //         // }catch(e){}
+    //     }
+    //     /**
+    //      * @type {EventTarget}
+    //      */
+    //     let ish;
+    //     if(!('ish' in ishContainer) || !(typeof(ishContainer.ish) !== 'function')){
+    //         const {waitForIsh} = await import('mount-observer/waitForIsh.js');
+    //         ish = await waitForIsh(ishContainer);
+    //     }else{
+    //         ish = ishContainer.ish;
+    //     }
 
-        if(!(itemTemplate instanceof HTMLTemplateElement)){
-            /**
-             * @type {HTMLTemplateElement}
-             */
-            const itemTemplate2 = document.createElement('template');
-            enhancedElement.removeAttribute('itemscope');
-            itemTemplate2.innerHTML = itemTemplate.outerHTML;
-            const {base} = emc;
-            const {branches} = emc;
-            for(const branch of branches){
-                const app = branch ? `-${branch}` : '';
-                itemTemplate2.content.firstElementChild?.removeAttribute(`${base}${app}`);
-            }
+    //     if(!(itemTemplate instanceof HTMLTemplateElement)){
+    //         /**
+    //          * @type {HTMLTemplateElement}
+    //          */
+    //         const itemTemplate2 = document.createElement('template');
+    //         enhancedElement.removeAttribute('itemscope');
+    //         itemTemplate2.innerHTML = itemTemplate.outerHTML;
+    //         const {base} = emc;
+    //         const {branches} = emc;
+    //         for(const branch of branches){
+    //             const app = branch ? `-${branch}` : '';
+    //             itemTemplate2.content.firstElementChild?.removeAttribute(`${base}${app}`);
+    //         }
             
-            let elementToHide = isScriptEl ? itemTemplate : enhancedElement;
-            if(isScriptEl){
-                elementToHide.remove();
-            }else{
-                elementToHide.innerHTML = '';
-                if('hidden' in elementToHide){
-                    elementToHide.hidden = true;
-                }
-            }
+    //         let elementToHide = isScriptEl ? itemTemplate : enhancedElement;
+    //         if(isScriptEl){
+    //             elementToHide.remove();
+    //         }else{
+    //             elementToHide.innerHTML = '';
+    //             if('hidden' in elementToHide){
+    //                 elementToHide.hidden = true;
+    //             }
+    //         }
 
-            itemTemplate = itemTemplate2;
+    //         itemTemplate = itemTemplate2;
+    //     }
+    //     return /** @type {PAP} */({
+    //         ish,
+    //         itemTemplate,
+    //         ishContainer
+    //     });
+    // }
+
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
+    async init(self){
+        const {parsedStatements, enhancedElement} = self;
+        // iterate through all the parsedStatements and fill in the listProp if not specified
+        /** @type {string | undefined} */
+        let defaultListProp;
+        /** @type Array<LoopingParameters> */
+        const loopingParameters = [];
+        for(const statement of parsedStatements){
+            let {listProp, itemProp} = statement;
+            if(listProp === undefined){
+                if(defaultListProp === undefined){
+                    const inferredList = enhancedElement.closest('[itemscope]:not([itemscope=""])');
+                    if(inferredList === null) throw 404;
+                    defaultListProp = inferredList.getAttribute('itemscope') || '';
+                }
+                //statement.listProp = defaultListProp;
+                listProp = defaultListProp;
+            }
+            const ishContainer = enhancedElement.closest(`[itemscope="${listProp}"`);
+            if(ishContainer === null) throw 404;
+            let ish;
+            if(!('ish' in ishContainer) || !(typeof(ishContainer.ish) !== 'function')){
+                const {waitForIsh} = await import('mount-observer/waitForIsh.js');
+                ish = await waitForIsh(ishContainer);
+            }else{
+                ish = ishContainer.ish;
+            }
+            loopingParameters.push({
+                ish,
+                ishContainer,
+                listProp,
+                itemProp
+            });
         }
+
+
+
         return /** @type {PAP} */({
-            ish,
-            itemTemplate,
-            ishContainer
+            loopingParameters
         });
     }
 
