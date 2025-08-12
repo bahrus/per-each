@@ -447,51 +447,89 @@ This library adheres to a strict division of labor between declarative markup in
 
 This library does provide some help when it comes to conditional logic as far as the template to use for a list item, but it follows a somewhat novel approach in order to adhere to the separation of concern guiding principle.
 
-In order to to do this, the developer will need to construct a list that is a list of tuples, rather than a list of objects.  The tuples must all be of the same size, and the size must match the number of per-each statements, and the number of templates defined, as seen below.  The key is that if an element of the tuple is undefined, then it will be skipped over, and not rendered.  That is how we accomplish the conditional template functionality.
+In order to to do this, the developer will need to construct a list that is a list of tuples of objects, rather than a list of single dimension objects.  The tuples must all be of the same size, and the size must match the number of per-each statements, and the number of templates defined, as seen below.  The key is that if an element of the tuple is undefined, then it will be skipped over, and not rendered.  That is how we accomplish the conditional template functionality.
 
-The looping logic checks which elements of 
+```JavaScript
+class FormElements{
+    rawListOfFormElements = [
+        {
+            type: 'text',
+            label: 'First Name',
+            name: 'firstName',
+            required: true,
+            placeholder: 'Enter your first name'
+        },
+        {
+            type: 'checkbox',
+            label: 'Subscribe to newsletter',
+            name: 'subscribe',
+            required: false,
+            checked: true
+        },
+        {
+            type: 'text',
+            label: 'Email',
+            name: 'email',
+            required: true,
+            placeholder: 'Enter your email'
+        }
+        ...
+    ];
+
+    get ConditionalListTuple(){
+        return this.rawListOfElements.map(x => {
+            switch(type){
+                case 'text':
+                    return [x, undefined, undefined];
+                case 'checkbox':
+                    return [undefined, x, undefined];
+                case 'search':
+                    return [undefined, undefined, x];
+            }
+        })
+    }
+}
+
+class TextboxMgr {...}
+
+class CheckboxMgr {...}
+
+class SearchMgr {...}
+```
+
+What's import here is that each of of the ConditionalListTuple has three items, between 0 and 3 of them being defined, the others being undefined.
+
+So now we need three per-each statements (they can reuse the same class, but in this example, we reach for three different classes).  And we need three templates (which can share the same remote definition)
 
 ```html
-<table itemscope=WorldRankingList>
-    <caption>Medal List Summer 2024</caption>
+<table itemscope=FormElementList>
+    <caption>Conditional Displays</caption>
     <thead>
         <tr>
-            <th></th>
-            <th>Rank</th>
-            <th>NOC</th>
-            <th>Gold</th>
-            <th>Silver</th>
-            <th>Bronze</th>
-            <th>Total</th>
+           ...
         </tr>
     </thead>
     <tbody>
         <template 
-            per-each="WorldRankingList"
-            per-each-map-idx-to="idx"
-            per-each-idx-start="1"
-            per-each-switch='{
-               "firstTier":{
-                  "ifAllOf": [],
-                  "ifNoneOf": []
-
+            per-each="
+                TextBoxMgr of FormElementList.
+                CheckBoxMgr of FormElementList.
+                SearchMgr of FormElementList.
+            "
         >
             
-            <template as=firstTier>
-               <tr>
-                <td itemprop=rank></td>
-                <td itemprop=noc></td>
-                <td itemprop=gold></td>
-                <td itemprop=silver></td>
-                <td itemprop=bronze></td>
-                <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
-             </tr>
+            <template>
+                <tr>
+                ...render TextBox info
+                </tr>
             </template>
-            <template as=secondTier>
-            
+            <template>
+                ...render CheckBox info
+            </template>
+            <template>
+                ...render SearchMgr info
             </template>
         </template>
-        
     </tbody>
 </table>
 ```
