@@ -515,13 +515,13 @@ So mathematically, we essentially have 2x3 = 6 possibilities to consider -- 2 re
     </thead>
     <tbody itemscope=Scope itemprop=ConditionalListTuples>
         <template 
-            per-each="
-                TextBoxMgr of Scope.
-                CheckBoxMgr of Scope.
-                SearchMgr of Scope.
-            "
+            per-each="TextBoxMgr, CheckBoxMgr, SearchMgr of Scope"
         >
-            
+            <template if=empty>
+                ...
+            </template>
+            <template if=notAnArray>
+                ...
             <template>
                 <tr>
                 ...render TextBox info
