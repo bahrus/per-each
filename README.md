@@ -451,7 +451,7 @@ This library does provide help for that scenario, described below.  As we will s
 For this scenario, the developer will need to construct a "two dimensional" list -- a list where each item of the list consists of a tuple (array) of objects.  The tuples must all be of the same size, and the size must match the number of per-each statements and the number of templates defined, as seen below.  The key is that if an element of the tuple is undefined or null, then it will be skipped over, and not rendered.  That is how we accomplish the conditional template functionality.
 
 ```JavaScript
-class FormElements{
+class FormElements {
     rawListOfFormElements = [
         {
             type: 'text',
@@ -477,7 +477,7 @@ class FormElements{
         ...
     ];
 
-    get ConditionalListTuple(){
+    get ConditionalListTuples(){
         return this.rawListOfElements.map(x => {
             switch(type){
                 case 'text':
@@ -513,12 +513,12 @@ So mathematically, we essentially have 2x3 = 6 possibilities to consider -- 2 re
            ...
         </tr>
     </thead>
-    <tbody>
+    <tbody itemscope=Scope itemprop=ConditionalListTuples>
         <template 
             per-each="
-                TextBoxMgr of FormElementList.
-                CheckBoxMgr of FormElementList.
-                SearchMgr of FormElementList.
+                TextBoxMgr of Scope.
+                CheckBoxMgr of Scope.
+                SearchMgr of Scope.
             "
         >
             
