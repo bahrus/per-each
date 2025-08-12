@@ -517,11 +517,6 @@ So mathematically, we essentially have 2x3 = 6 possibilities to consider -- 2 re
         <template 
             per-each="TextBoxMgr, CheckBoxMgr, SearchMgr of Scope"
         >
-            <template if=empty>
-                ...
-            </template>
-            <template if=notAnArray>
-                ...
             <template>
                 <tr>
                 ...render TextBox info
@@ -533,6 +528,12 @@ So mathematically, we essentially have 2x3 = 6 possibilities to consider -- 2 re
             <template>
                 ...render SearchMgr info
             </template>
+        </template>
+        <template 🎚️="on if isEmpty">
+            ...
+        </template>
+        <template 🎚️="on if notAnArray">
+            ...
         </template>
     </tbody>
 </table>
