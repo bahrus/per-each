@@ -443,6 +443,14 @@ If inheriting from
 
 ## Conditional Templates [TODO]
 
+This library adheres to a strict division of labor between declarative markup in the HTML, and the supporting Scoped classes.  If filtering of a list is needed, that filtering should be done within these custom classes.  The syntax for *per-each* provides no ability to filter the list, unlike some alternative looping frameworks.
+
+This library does provide some help when it comes to conditional logic as far as the template to use for a list item, but it follows a somewhat novel approach in order to adhere to the separation of concern guiding principle.
+
+In order to to do this, the developer will need to construct a list that is a list of tuples, rather than a list of objects.  The tuples must all be of the same size, and the size must match the number of per-each statements, and the number of templates defined, as seen below.  The key is that if an element of the tuple is undefined, then it will be skipped over, and not rendered.  That is how we accomplish the conditional template functionality.
+
+The looping logic checks which elements of 
+
 ```html
 <table itemscope=WorldRankingList>
     <caption>Medal List Summer 2024</caption>
