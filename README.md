@@ -498,9 +498,12 @@ class CheckboxMgr {...}
 class SearchMgr {...}
 ```
 
-What's import here is that each of of the ConditionalListTuple has three items, between 0 and 3 of them being defined, the others being undefined.
+What's important here is that each of of the ConditionalListTuple has three items, between 0 and 3 of them being defined, the others being undefined/empty/null.
 
-So now we need three per-each statements (they can reuse the same class, but in this example, we reach for three different classes).  And we need three templates (which can also [share the same remote definition](https://github.com/bahrus/mount-observer?tab=readme-ov-file#applying-dry-to-templates)).
+So now we need three per-each statements, as shown below. They can reuse the same class, but in this example, we reach for three different classes.  And we need three templates (which can also [share the same remote definition](https://github.com/bahrus/mount-observer?tab=readme-ov-file#applying-dry-to-templates)).
+
+So mathematically, we essentially have 2x3 = 6 possibilities to consider -- 2 represents the pair of scoping class and template choices, and 3 members of the tuple that needs to be mapped out, in case that helps.
+
 
 ```html
 <table itemscope=FormElementList>
