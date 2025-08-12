@@ -199,7 +199,7 @@ class PerEach extends BE {
      */
     async hydrate(self){
         const {
-            ish, itemProp, mapIdxTo, idxStart, itemTemplate, emc, idleTimeout,
+            ish, itemScopes, mapIdxTo, idxStart, itemTemplates, emc, idleTimeout,
             enhancedElement, ishContainer
         } = self;
         const {Clone$} = await import('trans-render/trHelpers/Clone$.js');
@@ -207,10 +207,10 @@ class PerEach extends BE {
          * @type {Clone$Options}
          */
         const cloneOptions = {
-            itemProp,
+            itemProps,
             mapIdxTo,
             idxStart,
-            itemTemplate,
+            itemTemplates,
             baseCrumb: emc.base,
             idleTimeout,
             seedEl: enhancedElement,
