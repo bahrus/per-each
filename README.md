@@ -269,6 +269,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             per-each="Country of WorldRankingList"
             per-each-map-idx-to="idx"
             per-each-idx-start="1"
+            trans-render-idrefs-a0="row_1 row_2 row_3 row_4"
         >
             <tr>
                 <td itemprop=rank></td>
@@ -280,7 +281,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             </tr>
 
         </template>
-        <tr itemscope=Country>
+        <tr itemscope=Country id=row_1>
             <td itemprop=rank>tbd 1</td>
             <td itemprop=noc>tbd 1</td>
             <td itemprop=gold>tbd 1</td>
@@ -288,7 +289,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 1</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr itemscope=Country>
+        <tr itemscope=Country id=row_2>
             <td itemprop=rank>tbd 2</td>
             <td itemprop=noc>tbd 2</td>
             <td itemprop=gold>tbd 2</td>
@@ -296,7 +297,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 2</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr itemscope=Country>
+        <tr itemscope=Country id=row_3>
             <td itemprop=rank>tbd 3</td>
             <td itemprop=noc>tbd 3</td>
             <td itemprop=gold>tbd 3</td>
@@ -304,7 +305,7 @@ Due to the heavy reliance on HTML attributes to keep things in sync, this elemen
             <td itemprop=bronze>tbd 3</td>
             <td><span itemprop=total>tbd</span> of <span -o=totalMedalCount>tbd</span></td>
         </tr>
-        <tr  itemscope=Country>
+        <tr  itemscope=Country id=row_4>
             <td itemprop=rank>tbd 4</td>
             <td itemprop=noc>tbd 4</td>
             <td itemprop=gold>tbd 4</td>
@@ -347,98 +348,7 @@ If the name of the itemscope list isn't provided, it is inferred.  This can redu
 </table>
 ```
 
-## Casual Fridays
-
-The examples so far allow for any class or function prototype library that abides by the minimal protocol mentioned above.  
-
-But *per-each* also provides some extra support to make the developer extra productive.
-
-Expand the markup below to see what that looks like
-
-<details>
-    <summary>Boilerplate busting iterating</summary>
-
-```html
-<script nomodule id=WorldRankingList>
-({
-    propInfo: {
-        ishList: {
-            def: [
-                {rank: 1, noc: 'United States', gold: 40, silver: 44, bronze: 42, total: 126},
-                {rank: 2, noc: 'China', gold: 40, silver: 27, bronze: 24, total: 91},
-                {rank: 3, noc: 'Japan', gold: 20, silver: 27, bronze: 13, total: 45},
-            ]
-        },
-        totalMedalCount: {
-            def: 0,
-        },
-    },
-    compacts:{
-        when_ishList_changes_dispatch: 'ishListChanged'
-    },
-    actions:{
-        calcTotal: {
-            ifAllOf: ['ishList'],
-            do: ({ishList}) => ({
-                totalMedalCount: ishList.reduce((acc, item) => acc + item.total, 0)
-            }),
-            
-        }
-    },
-    xform:{
-        '-o totalMedalCount': 0
-    }
-})
-</script>
-        
-<script nomodule id="Country" href=#WorldRankingList>
-({
-    propInfo:{
-        rank: {}, noc: {}, gold: {}, silver: {}, bronze: {}, total: {}, idx: {},
-    },
-    xform: {
-        ':root': [
-            {o: 'idx', s: 'ariaRowIndex'},
-        ],
-        '| rank': 0, '| noc': 0, '| gold': 0, '| silver': 0, '| bronze': 0, '| total': 0,
-    },
-    inScopeXForms: {
-        '.totals': {
-            '| total': 0
-        }
-    }
-})
-</script>
-
-<table itemscope=WorldRankingList>
-    <caption>Medal List Summer 2024</caption>
-    <thead>
-        <tr>
-            <th>Rank</th>
-            <th>NOC</th>
-            <th>Gold</th>
-            <th>Silver</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td itemprop=rank></td>
-            <td itemprop=noc></td>
-            <td itemprop=gold></td>
-            <td itemprop=silver></td>
-            <td itemprop=bronze></td>
-            <td><span itemprop=total></span> of <span -o=totalMedalCount></span></td>
-        </tr>
-        <script href="#Country" 🍑></script>
-    </tbody>
-</table>
-```
-
-</details>
-
-
-## Conditional Templates [TODO]
+## Conditional Templates 
 
 This library adheres to a strict division of labor between declarative markup in the HTML, and the supporting scoped classes.  If filtering of a list is needed, that filtering should be done within these custom classes, for example.  The syntax for *per-each* doesn't provide any ability to filter the list, unlike some alternative looping frameworks.
 
