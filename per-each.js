@@ -62,9 +62,6 @@ class PerEach extends BE {
             if(inferredList === null) throw 404;
             listScope = inferredList.getAttribute('itemscope') || '';
         }
-        // if(!itemProp && enhancedElement instanceof HTMLScriptElement && enhancedElement.hasAttribute('href')){
-        //     itemProp = enhancedElement.getAttribute('href')?.substring(1);
-        // }
         return /** @type {PAP} */({
             itemScopes, listScope
         });
@@ -80,15 +77,6 @@ class PerEach extends BE {
         const ishContainer = enhancedElement.closest(`[itemscope="${listScope}"`);
         if(ishContainer === null) throw 404;
         let itemTemplates = /** @type {Array<HTMLTemplateElement>} */ ( /**  @type {any} */ ([enhancedElement]));
-        // const isScriptEl = enhancedElement instanceof HTMLScriptElement;
-        // if(isScriptEl && enhancedElement.hasAttribute('href')) {
-        //     itemTemplate = itemTemplate.previousElementSibling;
-        //     const {ScopeScript} = await import('trans-render/froop/ScopeScript.js');
-        //     await ScopeScript(enhancedElement);
-        //     // try{
-        //     //     await ScopeScriptImpl(enhancedElement, listProp);
-        //     // }catch(e){}
-        // }
         /**
          * @type {EventTarget}
          */
