@@ -20,28 +20,26 @@ class PerEach extends BE {
         propInfo:{
             ...propInfo,
             each: {},
-            // itemProp:{},
-            // listProp:{},
-            //ish:{},
+            itemScopes: {},
+            listScope: {},
+            ish:{},
             mapIdxTo:{},
             idxStart:{def: 1},
             itemTemplates:{},
             emc: {},
             idleTimeout: {},
-            //ishContainer: {},
-            // rawStatements: {},
-            // parsedStatements: {},
-            // loopingParameters: {},
+            ishContainer: {},
+
         },
         compacts: {
             when_each_changes_call_parse: 0,
         },
         actions: {
             init: {
-                ifAllOf: ['parsedStatements'],
+                ifAllOf: ['itemScopes', 'listScope'],
             },
             hydrate: {
-                ifAllOf: ['itemTemplates', 'loopingParameters'],
+                ifAllOf: ['itemTemplates', 'ish', 'ishContainer'],
             },
         },
         positractions: [resolved, rejected],
@@ -57,18 +55,18 @@ class PerEach extends BE {
     parse(self){
         const { each, enhancedElement} = self;
         const split = each.split(' of ').map(s => s.trim());
-        let [itemScopesS, listProp] = split;
+        let [itemScopesS, listScope] = split;
         const itemScopes = itemScopesS.split(',').map(s => s.trim()).filter(s => !!s);
-        if(listProp === undefined){
+        if(listScope === undefined){
             const inferredList = enhancedElement.closest('[itemscope]:not([itemscope=""])');
             if(inferredList === null) throw 404;
-            listProp = inferredList.getAttribute('itemscope') || '';
+            listScope = inferredList.getAttribute('itemscope') || '';
         }
         // if(!itemProp && enhancedElement instanceof HTMLScriptElement && enhancedElement.hasAttribute('href')){
         //     itemProp = enhancedElement.getAttribute('href')?.substring(1);
         // }
         return /** @type {PAP} */({
-            itemScopes, listProp
+            itemScopes, listScope
         });
     }
 
@@ -207,7 +205,7 @@ class PerEach extends BE {
          * @type {Clone$Options}
          */
         const cloneOptions = {
-            itemProps,
+            itemScopes,
             mapIdxTo,
             idxStart,
             itemTemplates,

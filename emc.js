@@ -14,26 +14,26 @@ export const emc = {
     branches: ['', 'map-idx-to', 'idx-start', 'idle-timeout', 'options'],
     enhPropKey: 'perEach',
     map: {
-        '0.0': {
-            instanceOf: 'Object$entences',
-            objValMapsTo: '.',
-            regExpExts: {
-                parsedStatements: [
-                    {
-                        regExp: itemPropOfListProp,
-                        defaultVals: {}
-                    },
-                    {
-                        regExp: itemProp,
-                        defaultVals: {}
-                    }
-                ]
-            }
-        },
-        // '0.0':{
-        //     instanceOf: 'String',
-        //     mapsTo: 'each',
+        // '0.0': {
+        //     instanceOf: 'Object$entences',
+        //     objValMapsTo: '.',
+        //     regExpExts: {
+        //         parsedStatements: [
+        //             {
+        //                 regExp: itemPropOfListProp,
+        //                 defaultVals: {}
+        //             },
+        //             {
+        //                 regExp: itemProp,
+        //                 defaultVals: {}
+        //             }
+        //         ]
+        //     }
         // },
+        '0.0':{
+            instanceOf: 'String',
+            mapsTo: 'each',
+        },
         '1.0': {
             instanceOf: 'String',
             mapsTo: 'mapIdxTo',
