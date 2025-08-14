@@ -85,7 +85,7 @@ Being that *per-each* is a  *be-hive* based custom enhancement, that builds on [
 
 What makes the "ish" property a bit interesting as a property, is that the setter for ish doesn't actually replace the ish class instance, but rather does an Object.assign / shallow merge (?) of the passed in object into the class instance.  That is, that's what happens if the object being passed in is *not* an array.
 
-In the case of getting passed in an array, the ish property setter sets the class instances's "ishList" property.  So these "scoped class or function prototype instances" that wish to provide a list of data are expected to follow the convention of reserving that property with name "ishList", which *per-each* assumes.
+In the case of getting passed in an array, things get a bit more complicated, but again, no property values are lost.  The array is merged into the ish object as an iterable list.  Extracting the array can be done via Array.from(oElement.ish).
 
 Implementing these conventions takes a certain amount of boilerplate effort, shown below.  However, a small library or base class or two can easily make developing such cookie cutter classes or function prototypes trivial:
 
