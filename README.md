@@ -358,7 +358,7 @@ But there are scenarios, lists containing radically different types of objects, 
 
 This library does provide help for that scenario, described below.  As we will see, it follows a somewhat novel approach, in order to adhere to the separation of concern guiding principle.
 
-For this scenario, the developer will need to construct a "two dimensional" list -- a list where each item of the list consists of a tuple (array) of objects.  The tuples must all be of the same size, and the size must match the number of per-each statements and the number of templates defined, as seen below.  The key is that if an element of the tuple is undefined or null, then it will be skipped over, and not rendered.  That is how we accomplish the conditional template functionality.
+For this scenario, the developer will need to construct a "two dimensional" list -- a list where each item of the list consists of a tuple (array) of objects.  The tuples must all be of the same size, and the size must match the number of itemscopes defined, and the number of templates defined, as seen below.  The key is that if an element of the tuple is undefined or null, then it will be skipped over, and not rendered.  That is how we accomplish the conditional template functionality.
 
 ```JavaScript
 class FormElements {
