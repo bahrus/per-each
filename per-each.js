@@ -105,15 +105,6 @@ class PerEach extends BE {
                 itemTemplate2.content.firstElementChild?.removeAttribute(`${base}${app}`);
             }
             
-            //let elementToHide = isScriptEl ? itemTemplate : enhancedElement;
-            // if(isScriptEl){
-            //     elementToHide.remove();
-            // }else{
-            //     elementToHide.innerHTML = '';
-            //     if('hidden' in elementToHide){
-            //         elementToHide.hidden = true;
-            //     }
-            // }
             enhancedElement.innerHTML = '';
             if('hidden' in enhancedElement){
                 enhancedElement.hidden = true;
@@ -131,52 +122,6 @@ class PerEach extends BE {
         });
     }
 
-    // /**
-    //  * 
-    //  * @param {BAP} self 
-    //  * @returns 
-    //  */
-    // async init(self){
-    //     const {parsedStatements, enhancedElement} = self;
-    //     // iterate through all the parsedStatements and fill in the listProp if not specified
-    //     /** @type {string | undefined} */
-    //     let defaultListProp;
-    //     /** @type Array<LoopingParameters> */
-    //     const loopingParameters = [];
-    //     for(const statement of parsedStatements){
-    //         let {listProp, itemProp} = statement;
-    //         if(listProp === undefined){
-    //             if(defaultListProp === undefined){
-    //                 const inferredList = enhancedElement.closest('[itemscope]:not([itemscope=""])');
-    //                 if(inferredList === null) throw 404;
-    //                 defaultListProp = inferredList.getAttribute('itemscope') || '';
-    //             }
-    //             //statement.listProp = defaultListProp;
-    //             listProp = defaultListProp;
-    //         }
-    //         const ishContainer = enhancedElement.closest(`[itemscope="${listProp}"`);
-    //         if(ishContainer === null) throw 404;
-    //         let ish;
-    //         if(!('ish' in ishContainer) || !(typeof(ishContainer.ish) !== 'function')){
-    //             const {waitForIsh} = await import('mount-observer/waitForIsh.js');
-    //             ish = await waitForIsh(ishContainer);
-    //         }else{
-    //             ish = ishContainer.ish;
-    //         }
-    //         loopingParameters.push({
-    //             ish,
-    //             ishContainer,
-    //             listProp,
-    //             itemProp
-    //         });
-    //     }
-
-
-
-    //     return /** @type {PAP} */({
-    //         loopingParameters
-    //     });
-    // }
 
     /**
      * 
